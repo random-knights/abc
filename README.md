@@ -102,6 +102,7 @@ If any issues arise for any of the below mentioned areas, please draft a strongl
 - uti1ity
   - Advanced tools and scripts (batch, ffmpeg, automation, and more).
   - Primarily reference and inspiration.
+  - First classroom lab: [Render / Media Composition](labs/render-media-composition.md)
 
 <span style="color:#FF4124">
 

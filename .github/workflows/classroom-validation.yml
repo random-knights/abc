@@ -1,0 +1,80 @@
+name: Classroom Validation
+
+on:
+  workflow_dispatch:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - .github/workflows/classroom-validation.yml
+      - README.md
+      - lessons/**
+      - labs/**
+      - assets/**
+  push:
+    branches:
+      - main
+      - chore/**
+      - feature/**
+    paths:
+      - .github/workflows/classroom-validation.yml
+      - README.md
+      - lessons/**
+      - labs/**
+      - assets/**
+
+permissions:
+  contents: read
+
+concurrency:
+  group: classroom-validation-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  classroom-validation:
+    name: ABC Classroom Static Checks
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Verify required classroom docs
+        shell: bash
+        run: |
+          test -s README.md
+          test -s lessons/intro.md
+          test -s lessons/render-media-composition.md
+          test -s labs/sandbox.md
+          test -s labs/render-media-composition.md
+
+      - name: Verify FFmpeg boundary
+        shell: bash
+        run: |
+          if find . -type f \( -iname "ffmpeg.exe" -o -iname "ffprobe.exe" \) | grep -q .; then
+            echo "Do not commit FFmpeg binaries to the classroom repo."
+            exit 1
+          fi
+
+      - name: Verify generated media boundary
+        shell: bash
+        run: |
+          if find . -type f \( -iname "*.mp4" -o -iname "*.mov" -o -iname "*.mkv" -o -iname "*.avi" \) | grep -q .; then
+            echo "Do not commit generated video outputs to the classroom repo."
+            exit 1
+          fi
+
+      - name: Check markdown files are non-empty
+        shell: bash
+        run: |
+          while IFS= read -r file; do
+            test -s "$file"
+          done < <(find . -path ./.git -prune -o -type f -name "*.md" -print)
+
+      - name: Inventory classroom scripts
+        shell: bash
+        run: |
+          if [ -d assets ]; then
+            find assets -type f \( -iname "*.bat" -o -iname "*.ps1" -o -iname "*.py" \) -print
+          else
+            echo "No classroom assets directory committed."
+          fi

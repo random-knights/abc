@@ -1,0 +1,36 @@
+# Local classroom workspaces and generated outputs
+workspace/
+**/workspace/
+output/
+**/output/
+*.mp4
+*.mov
+*.mkv
+*.avi
+*.webm
+
+# Local binary/tool caches
+*.exe
+*.dll
+*.zip
+*.7z
+*.tar
+*.gz
+ffmpeg.exe
+ffprobe.exe
+ffplay.exe
+C:/ffmpeg/
+ffmpeg/
+tools/
+tool-cache/
+
+# Python local state
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# OS/editor noise
+.DS_Store
+Thumbs.db
+.vscode/

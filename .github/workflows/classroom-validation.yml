@@ -8,6 +8,7 @@ on:
     paths:
       - .github/workflows/classroom-validation.yml
       - README.md
+      - .gitignore
       - lessons/**
       - labs/**
       - assets/**
@@ -19,6 +20,7 @@ on:
     paths:
       - .github/workflows/classroom-validation.yml
       - README.md
+      - .gitignore
       - lessons/**
       - labs/**
       - assets/**
@@ -46,6 +48,11 @@ jobs:
           test -s lessons/render-media-composition.md
           test -s labs/sandbox.md
           test -s labs/render-media-composition.md
+          for id in 01 02 03 04 05 06 07 08 09 10; do
+            test -s lessons/${id}-*.md
+            test -s labs/${id}-*.md
+          done
+          test -s .gitignore
 
       - name: Verify FFmpeg boundary
         shell: bash

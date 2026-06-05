@@ -104,6 +104,43 @@ If any issues arise for any of the below mentioned areas, please draft a strongl
   - Primarily reference and inspiration.
   - First classroom lab: [Render / Media Composition](labs/render-media-composition.md)
 
+## Classroom Lesson + Lab Index
+
+The classroom modules are paired: read the lesson first, then complete the
+matching lab in a local `workspace/` folder.
+
+| # | Lesson | Lab | Asset focus |
+| --- | --- | --- | --- |
+| 01 | [Classroom Orientation](lessons/01-classroom-orientation.md) | [Classroom Orientation](labs/01-classroom-orientation.md) | repo structure |
+| 02 | [Batch Command Basics](lessons/02-batch-command-basics.md) | [Batch Command Basics](labs/02-batch-command-basics.md) | calculator, guessing game |
+| 03 | [Randomness And Input Validation](lessons/03-randomness-input-validation.md) | [Randomness And Input Validation](labs/03-randomness-input-validation.md) | guessing game, password generator |
+| 04 | [Looping Terminal Output](lessons/04-looping-terminal-output.md) | [Looping Terminal Output](labs/04-looping-terminal-output.md) | rainbow matrix |
+| 05 | [Turn-Based Game State](lessons/05-turn-based-game-state.md) | [Turn-Based Game State](labs/05-turn-based-game-state.md) | tic-tac-toe, pokemon |
+| 06 | [Script Safety Review](lessons/06-script-safety-review.md) | [Script Safety Review](labs/06-script-safety-review.md) | static script review |
+| 07 | [Ambient Asset Inventory](lessons/07-ambient-asset-inventory.md) | [Ambient Asset Inventory](labs/07-ambient-asset-inventory.md) | MP3 inventory |
+| 08 | [Render Wrapper Boundaries](lessons/08-render-wrapper-boundaries.md) | [Render Wrapper Boundaries](labs/08-render-wrapper-boundaries.md) | REND3R, FFmpeg boundary |
+| 09 | [Python API Readiness](lessons/09-python-api-readiness.md) | [Python API Readiness](labs/09-python-api-readiness.md) | ISS, asteroid samples |
+| 10 | [Earth Data Boundaries](lessons/10-earth-data-boundaries.md) | [Earth Data Boundaries](labs/10-earth-data-boundaries.md) | Earth imagery samples |
+
+Existing starter material:
+
+- [Intro](lessons/intro.md)
+- [Sandbox](labs/sandbox.md)
+- [Render / Media Composition lesson](lessons/render-media-composition.md)
+- [Render / Media Composition lab](labs/render-media-composition.md)
+
+## Asset Usage Notes
+
+Classroom assets live under `assets/` and should be referenced by relative path.
+Do not duplicate MP3 files into lesson or lab folders. When a lab asks you to
+edit or run a script, copy it into a local ignored `workspace/` folder first.
+
+Safety notes:
+
+- `assets/batch/MR.ROBOT PC-CLEAN.bat` is for static review only. Do not run it.
+- Python API samples are review-first examples. Do not add real credentials.
+- Generated outputs belong in ignored `workspace/` or `output/` folders.
+
 ## Classroom FFmpeg Boundary
 
 Render/media labs require students to install FFmpeg locally from the official
@@ -113,6 +150,23 @@ Keep FFmpeg on PATH for classroom exercises. Do not commit `ffmpeg.exe`,
 `ffprobe.exe`, generated videos, or other large render outputs to this repo.
 `REND3R.bat` and related scripts are classroom-only learning materials, not
 production Rand0m runtime dependencies.
+
+## Classroom Validation
+
+ABC uses a lightweight GitHub Actions workflow:
+
+- `.github/workflows/classroom-validation.yml`
+
+It checks required lesson/lab files, markdown presence, and forbidden render
+binaries/outputs. Local validation for classroom-only changes should stay light:
+
+```powershell
+git diff --check
+git status -sb
+```
+
+Do not run app Flutter tests, package tests, Firebase deploys, or production
+workflows for classroom-only content.
 
 <span style="color:#FF4124">
 

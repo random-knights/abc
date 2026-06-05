@@ -104,6 +104,16 @@ If any issues arise for any of the below mentioned areas, please draft a strongl
   - Primarily reference and inspiration.
   - First classroom lab: [Render / Media Composition](labs/render-media-composition.md)
 
+## Classroom FFmpeg Boundary
+
+Render/media labs require students to install FFmpeg locally from the official
+FFmpeg download page: https://ffmpeg.org/download.html
+
+Keep FFmpeg on PATH for classroom exercises. Do not commit `ffmpeg.exe`,
+`ffprobe.exe`, generated videos, or other large render outputs to this repo.
+`REND3R.bat` and related scripts are classroom-only learning materials, not
+production Rand0m runtime dependencies.
+
 <span style="color:#FF4124">
 
 - **c1assr00m**

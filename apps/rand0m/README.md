@@ -4,12 +4,12 @@
 <br />
 <div align="center">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://github.com/random-knights/.github/blob/main/assets/_c1assr00m/ce-drk.gif">
-    <source media="(prefers-color-scheme: light)" srcset="https://github.com/random-knights/.github/blob/main/assets/_c1assr00m/ce-lte.png">
-    <img alt="Shows a Day/Night themed markedown gif based on AM/PM." src="https://github.com/random-knights/.github/blob/main/assets/_c1assr00m/ce-drk.gif">
+    <source media="(prefers-color-scheme: dark)" srcset="https://github.com/random-knights/.github/blob/main/assets/rand0m/<PROJECT_ID>.gif">
+    <source media="(prefers-color-scheme: light)" srcset="https://github.com/random-knights/.github/blob/main/assets/rand0m/<PROJECT_ID>.png">
+    <img alt="Shows a Day/Night themed markedown gif based on AM/PM." src="https://github.com/random-knights/.github/blob/main/assets/rand0m/<PROJECT_ID>.gif">
   </picture>
 
-<h3 align="center" style="color:#ff4124">Random Knights, XYZ - c1assr00m</h3>
+<h3 align="center" style="color:#ff4124">Random Knights, XYZ - ɯ0puɐɹ</h3>
 
   <p align="center">
     rand0m.ai & randomly.engineering
@@ -27,34 +27,36 @@
 
 ## <span style="color:#FAAFA5"><u> **OVERVIEW** </u></span>
 
-[C1assr00m](https://c1assr00m.rand0m.ai) [`Engineering: intro into Development, AI, Automation, and S.T.E.A.M.`]
+[Rand0m](https://rand0m.ai) [`Knight1y: Exp10ring Every WORK/DAY Interest`]
 </br>
 <small>from Random Knights, XYZ</small>
 
-... a structured learning environment designed to introduce contributors
-to software development, AI concepts, automation workflows, and S.T.E.A.M.
-foundations through guided missions and hands-on practice.
+... a creative sandbox and experimental AI playground where ideas are tested,
+agents are unleashed, and processes evolve in unpredictable ways. Rand0m
+serves as the pre-production environment for exploring automation concepts,
+agent orchestration, data persistence, and iterative development practices.
 
-Instead of separate repositories, learning modules live as organized
-folders, allowing students to progress step-by-step while building
-real skills within a unified workspace.
+Designed to encourage experimentation, discovery, and controlled chaos,
+it allows contributors to prototype boldly while learning how real-world
+AI systems behave under dynamic conditions.
 
-Featuring:
+Featuring: Rand0m Agents of Chaos...
 
-- 🎓 Guided missions for step-by-step learning
-- 🧠 Foundations in AI, automation, and development workflows
-- 🧩 Practical hands-on coding exercises
-- 📚 Structured curriculum organized by skill level
-- 🤝 Safe environment for junior contributor growth
-- 🚀 Pathway into advanced Rand0m projects
+- 🐿️ `Unpredictably helpful AI Agents`
+  - `¯\_(ツ)_/¯` :robot:
+- 🧪 Experimental AI processes and agent orchestration
+- 🗃️ Hive DB history tracking and state persistence
+- 🔄 Rapid prototyping environment for new ideas
+- 🎲 Sandbox testing before production migration
+- 💻 Mid-level contributor collaboration processes
 
 <p align="center">
-  <img src="https://github.com/random-knights/.github/blob/main/assets/_c1assr00m/ruok-ce.gif" alt="Rand0m: C1assr00m" title="Random Knights, XYZ">
+  <img src="https://github.com/random-knights/.github/blob/main/assets/rand0m/rand0m.gif" alt="Rand0m: Kn1ghts" title="Random Knights, XYZ">
 </p>
 
 ## <span style="color:#D8D8D8"><u> **POINTS OF CONTACT** </u></span>
 
-If any issues arise for any of the below mentioned areas, please open a focused issue or pull request in the public project queue.
+If any issues arise for any of the below mentioned areas, please draft a strongly worded email and never send it to: **<PUBLIC_CONTACT>**
 
 <div align="center">
 
@@ -78,35 +80,18 @@ If any issues arise for any of the below mentioned areas, please open a focused 
 
 </div>
 
-## 🏫 <span style="color:#555555"><u> **PUBLIC DOCS MAP** </u></span>
+## <span style="color:#555555"><u> **LEARN + PLAY + CREATE** </u></span>
 
-- [AIEDS](architecture/aieds/)
-  - Public AI Environmental Disclosure Standard drafts and supporting notes.
-- [Earth](architecture/earth/)
-  - Earth feature specs, source attributions, data governance notes, and provider contracts.
-- [Ecosystem](architecture/ecosystem/)
-  - Public product architecture, app-shell contracts, and naming maps.
-- [Packages](architecture/packages/)
-  - Public package boundaries and scaffold notes.
-- [Automation](automation/)
-  - Automation, BDD, naming, and classroom process guidance.
-- [Branding](branding/)
-  - Public theme, icon, and brand documentation.
-- [Decisions](decisions/)
-  - Public architecture decision records.
-- [Apps and experiences](apps/)
-  - Companion public docs for kn1ghts, orac1es, rand0m, uti1ity, and c1assr00m.
+<span style="color:#FF4124">
 
-Internal operations, deployment details, security posture, environment variables, private identities, roadmap state, and historical records stay outside this public docs repo.
+- **rand0m**
+  - **A true sandbox. Experiments, ideas, and creative chaos are encouraged.**
+  - **Mid level. AI, Agents, and Hive DB History.**
+  - **A pre-production project t ostep up your AI game.**
+  - **Junior contributors observe first, then assist gradually.**
+    - <small>**subject to change ... randomly**</small>
 
-## 🏫 <span style="color:#555555"><u> **LEARN + PLAY + CREATE** </u></span>
-
-- rand0m
-  - A true sandbox. Experiments, ideas, and creative chaos are encouraged.
-  - Mid level. AI, Agents, and Hive DB History.
-  - A pre-production project t ostep up your AI game.
-  - Junior contributors observe first, then assist gradually.
-    - <small>subject to change ... randomly</small>
+</span>
 
 - kn1ghts
   - Expert level. Everything combined, all in 1 app.
@@ -123,27 +108,12 @@ Internal operations, deployment details, security posture, environment variables
 - uti1ity
   - Advanced tools and scripts (batch, ffmpeg, automation, and more).
   - Primarily reference and inspiration.
-  - First classroom lab: [Render / Media Composition](labs/render-media-composition.md)
 
-## Classroom FFmpeg Boundary
+- c1assr00m
+  - The formal learning space. All junior contributors start here.
+  - Missions live as folders, not separate repos, keeping things simple and focused.
 
-Render/media labs require students to install FFmpeg locally from the official
-FFmpeg download page: https://ffmpeg.org/download.html
-
-Keep FFmpeg on PATH for classroom exercises. Do not commit `ffmpeg.exe`,
-`ffprobe.exe`, generated videos, or other large render outputs to this repo.
-`REND3R.bat` and related scripts are classroom-only learning materials, not
-production Rand0m runtime dependencies.
-
-<span style="color:#FF4124">
-
-- **c1assr00m**
-  - **The formal learning space. All junior contributors start here.**
-  - **Missions live as folders, not separate repos, keeping things simple and focused.**
-
-</span>
-
-- quality engineering
+- engineering reviewer
   - The formal testing space. All QA contributors start here.
   - Learn, add, and monitor our Regression tests w/open-source tools.
 
@@ -231,69 +201,157 @@ _For more information, please visit: [GitHub Manifesto](https://lmgtfy.app/?q=ho
 <small>**EXAMPLE:**</small>
 
 ```mermaid
-%%{init: { 'logLevel': 'debug', 'theme': 'base', 'gitGraph': {'showBranches': true, 'showCommitLabel': true, 'mainBranchName': 'rand0m'} } }%%
-gitGraph
-    %% rand0m (AI shell / PROD)
-    commit id:"commit_01"
-    commit id:"commit_02"
+%%{init: { 'logLevel': 'debug', 'theme': 'base', 'gitGraph': {'showBranches': true, 'showCommitLabel':true,'mainBranchName': 'rand0m'}} }%%
+  gitGraph
+        commit id:"commit_01"
+        commit id:"commit_02"
+        branch kn1ghts
+        commit id:"commit_T01"
+        commit id:"commit_T02"
+        commit id:"commit_T03"
+        branch day5
+        commit id:"commit_K01"
+        commit type: HIGHLIGHT id:"commit_K02"
 
-    %% Core feeder repos (ordered)
-    branch uti1ity
-    commit id:"commit_K01"
-    commit id:"commit_K02"
-    commit id:"commit_K03"
+        checkout rand0m
+        commit id:"commit_03"
+        merge day5
+        commit id:"commit_05"
+        commit id:"commit_06"
+        merge kn1ghts tag:"cherrypick"
 
-    branch orac1es
-    commit id:"commit_C01"
-    commit id:"commit_C02"
 
-    branch kn1ghts
-    commit id:"commit_O01"
-    commit type:HIGHLIGHT id:"commit_O02"
-
-    %% Experimental / learning repos
-    branch c1assr00m
-    commit id:"commit_U01"
-
-    %% Demo / testing repo (LAST, spans everything)
-    branch exp10re
-    commit id:"commit_E01"
-    commit id:"commit_E02"
-    commit id:"commit_E03"
-
-    %% Back to rand0m – controlled integrations
-    checkout rand0m
-    commit id:"commit_03"
-    merge c1assr00m
-    commit id:"commit_04"
-    merge orac1es
-    commit id:"commit_05"
-    merge uti1ity
-    commit id:"commit_06"
-    merge kn1ghts tag:"cherrypick"
-    merge exp10re tag:"demo"
-
-    commit type:REVERSE id:"head"
+        commit type:REVERSE id:"head"
 ```
 
 <small>😉 RUOK-CE</small>
 
-<!-- WORKFLOWS -->
+<!-- AGENTS -->
 
-## <span style="color:#555555" name="workflows"><u> **TEST AUTOMATION** </u></span>
-
-**Xray <> Cucumber** <small>demo only</small>
+## <span style="color:#555555" name="regression"><u> **AGENTS** </u></span>
 
 ```mermaid
-graph LR
-A[ID Manual Tests for Automation in Jira] --> B
-B[Convert to Cucumber Tests in Jira] --> C
-C[Export Cucumber Feature files from Jira] --> D
-D[Impliment Step Definitions in Cypress] --> E
-E[Execute Cypress tests in CI environment] --> F[Report automation results to Jira]
+classDiagram
+    AI_Agent_DAY5 <|-- engineering reviewer
+    AI_Agent_DAY5 <|-- Expl0rer
+    AI_Agent_DAY5 <|-- Devel0per
+    AI_Agent_DAY5 <|-- science reviewer
+    AI_Agent_DAY5 <|-- Secur1ty
+    AI_Agent_DAY5 : +envt | day5.rand0m.ai/agents
+    AI_Agent_DAY5 : +org | Random Knights, XYZ
+    AI_Agent_DAY5: -user() [agent_name]@rand0m.ai
+    AI_Agent_DAY5: -roles() Manager | Viewer | Admin
+    class engineering reviewer{
+      +biomedical
+      +civil
+      +electrical
+      +environmental
+      +mechanical
+      +software
+      -adapt()
+    }
+    class Expl0rer{
+      +archaeology
+      +ecology
+      +nature
+      +science
+      +space
+      +whatever
+      -find()
+    }
+    class Devel0per{
+      +backEnd
+      +devOps
+      +embedded
+      +frontEnd
+      +fullStack
+      +mobile
+      +systems
+      -build()
+      -break()
+    }
+    class science reviewer{
+      +business
+      +earth
+      +computer
+      +physical
+      +social
+      +theory
+      -test()
+    }
+    class Secur1ty{
+      +admin
+      +cyber
+      +digital
+      +economic
+      +financial
+      +operational
+      -protect()
+    }
 ```
 
-<small>\*\*implimentation requires broader community engagement</small>
+```mermaid
+classDiagram
+    AI_Agent_KN1GHTS <|-- Act0r
+    AI_Agent_KN1GHTS <|-- Comed1an
+    AI_Agent_KN1GHTS <|-- Art1st
+    AI_Agent_KN1GHTS <|-- Edit0r
+    AI_Agent_KN1GHTS <|-- Pr0ducer
+    AI_Agent_KN1GHTS : +envt | kn1ghts.rand0m.ai/agents
+    AI_Agent_KN1GHTS : +org | Random Knights, XYZ
+    AI_Agent_KN1GHTS: -user() [agent_name]@rand0m.ai
+    AI_Agent_KN1GHTS: -roles() Manager | Viewer | Admin
+    class Act0r{
+      +animation
+      +background
+      +tv/film
+      +socialMedia
+      +stage
+      +voice-over
+      -display()
+    }
+    class Comed1an{
+      +absurdist
+      +dark
+      +improv
+      +parody
+      +satire
+      +slapstick
+      -craft()
+    }
+    class Art1st{
+      +concept
+      +commercial
+      +graphical
+      +illustrator
+      +performance
+      +sculpt
+      +visual
+      -draft()
+      -design()
+      -detail()
+    }
+    class Edit0r{
+      +audio
+      +development
+      +content
+      +photo
+      +video
+      +writing
+      -fix()
+    }
+    class Pr0ducer{
+      +assist
+      +creative
+      +entertainment
+      +executive
+      +schedule
+      +talent
+      -guide()
+    }
+```
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- BADGES -->
 

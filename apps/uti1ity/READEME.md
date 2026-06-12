@@ -4,12 +4,12 @@
 <br />
 <div align="center">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://github.com/random-knights/.github/blob/main/assets/_c1assr00m/ce-drk.gif">
-    <source media="(prefers-color-scheme: light)" srcset="https://github.com/random-knights/.github/blob/main/assets/_c1assr00m/ce-lte.png">
-    <img alt="Shows a Day/Night themed markedown gif based on AM/PM." src="https://github.com/random-knights/.github/blob/main/assets/_c1assr00m/ce-drk.gif">
+    <source media="(prefers-color-scheme: dark)" srcset="https://github.com/random-knights/.github/blob/main/assets/uti1ity/uti1ity-drk.gif">
+    <source media="(prefers-color-scheme: light)" srcset="https://github.com/random-knights/.github/blob/main/assets/uti1ity/uti1ity-lte.png">
+    <img alt="Shows a Day/Night themed markedown gif based on AM/PM." src="https://github.com/random-knights/.github/blob/main/assets/uti1ity/uti1ity-drk.gif">
   </picture>
 
-<h3 align="center" style="color:#ff4124">Random Knights, XYZ - c1assr00m</h3>
+<h3 align="center" style="color:#ff4124">Random Knights, XYZ - uti1ity</h3>
 
   <p align="center">
     rand0m.ai & randomly.engineering
@@ -27,34 +27,35 @@
 
 ## <span style="color:#FAAFA5"><u> **OVERVIEW** </u></span>
 
-[C1assr00m](https://c1assr00m.rand0m.ai) [`Engineering: intro into Development, AI, Automation, and S.T.E.A.M.`]
+[Uti1ity](https://uti1ity.rand0m.ai) [`Custom Uti1ity Automations: Vide0 and Audi0 Rend3r`]
 </br>
 <small>from Random Knights, XYZ</small>
 
-... a structured learning environment designed to introduce contributors
-to software development, AI concepts, automation workflows, and S.T.E.A.M.
-foundations through guided missions and hands-on practice.
+... a batch-based rendering utility built on **FFmpeg** for creating custom short and
+long form ambient videos (e.g. 8-hour fireplace, forest, city, mountains, etc.)
+by programatically looping MP4 animations and looping MP3 soundscapes.
 
-Instead of separate repositories, learning modules live as organized
-folders, allowing students to progress step-by-step while building
-real skills within a unified workspace.
+It is designed for **YouTube ambience content**, testing processes, and high-resolution
+static-background animations with perfectly synced audio.
 
 Featuring:
 
-- 🎓 Guided missions for step-by-step learning
-- 🧠 Foundations in AI, automation, and development workflows
-- 🧩 Practical hands-on coding exercises
-- 📚 Structured curriculum organized by skill level
-- 🤝 Safe environment for junior contributor growth
-- 🚀 Pathway into advanced Rand0m projects
+- 🎥 Loop short MP4 videos into long-form outputs (seconds → hours)
+- 🔊 Loop and sync MP3 audio seamlessly
+- ⏱ Configurable targets and durations (test mode or production)
+- 📦 Menu-driven batch interface
+- 🕒 Timestamped outputs to prevent overwrites
+- 🚀 Fast renders using stream copy (no video re-encoding)
+- 🧪 Test mode (e.g. 88-second outputs)
+- 🏭 Production mode (8+ hour outputs)
 
 <p align="center">
-  <img src="https://github.com/random-knights/.github/blob/main/assets/_c1assr00m/ruok-ce.gif" alt="Rand0m: C1assr00m" title="Random Knights, XYZ">
+  <img src="https://github.com/random-knights/.github/blob/main/assets/uti1ity/uti1ity.gif" alt="Rand0m: Uti1ity" title="Random Knights, XYZ">
 </p>
 
 ## <span style="color:#D8D8D8"><u> **POINTS OF CONTACT** </u></span>
 
-If any issues arise for any of the below mentioned areas, please open a focused issue or pull request in the public project queue.
+If any issues arise for any of the below mentioned areas, please draft a strongly worded email and never send it to: **<PUBLIC_CONTACT>**
 
 <div align="center">
 
@@ -78,27 +79,6 @@ If any issues arise for any of the below mentioned areas, please open a focused 
 
 </div>
 
-## 🏫 <span style="color:#555555"><u> **PUBLIC DOCS MAP** </u></span>
-
-- [AIEDS](architecture/aieds/)
-  - Public AI Environmental Disclosure Standard drafts and supporting notes.
-- [Earth](architecture/earth/)
-  - Earth feature specs, source attributions, data governance notes, and provider contracts.
-- [Ecosystem](architecture/ecosystem/)
-  - Public product architecture, app-shell contracts, and naming maps.
-- [Packages](architecture/packages/)
-  - Public package boundaries and scaffold notes.
-- [Automation](automation/)
-  - Automation, BDD, naming, and classroom process guidance.
-- [Branding](branding/)
-  - Public theme, icon, and brand documentation.
-- [Decisions](decisions/)
-  - Public architecture decision records.
-- [Apps and experiences](apps/)
-  - Companion public docs for kn1ghts, orac1es, rand0m, uti1ity, and c1assr00m.
-
-Internal operations, deployment details, security posture, environment variables, private identities, roadmap state, and historical records stay outside this public docs repo.
-
 ## 🏫 <span style="color:#555555"><u> **LEARN + PLAY + CREATE** </u></span>
 
 - rand0m
@@ -120,30 +100,19 @@ Internal operations, deployment details, security posture, environment variables
     - Small interactive Crystal Ball "Orac1es".
   - Companion _Rabbit R1_ app Creation mini-project.
 
-- uti1ity
-  - Advanced tools and scripts (batch, ffmpeg, automation, and more).
-  - Primarily reference and inspiration.
-  - First classroom lab: [Render / Media Composition](labs/render-media-composition.md)
-
-## Classroom FFmpeg Boundary
-
-Render/media labs require students to install FFmpeg locally from the official
-FFmpeg download page: https://ffmpeg.org/download.html
-
-Keep FFmpeg on PATH for classroom exercises. Do not commit `ffmpeg.exe`,
-`ffprobe.exe`, generated videos, or other large render outputs to this repo.
-`REND3R.bat` and related scripts are classroom-only learning materials, not
-production Rand0m runtime dependencies.
-
 <span style="color:#FF4124">
 
-- **c1assr00m**
-  - **The formal learning space. All junior contributors start here.**
-  - **Missions live as folders, not separate repos, keeping things simple and focused.**
+- **uti1ity**
+  - **Advanced tools and scripts (batch, ffmpeg, automation, and more).**
+  - **Primarily reference and inspiration.**
 
 </span>
 
-- quality engineering
+- c1assr00m
+  - The formal learning space. All junior contributors start here.
+  - Missions live as folders, not separate repos, keeping things simple and focused.
+
+- engineering reviewer
   - The formal testing space. All QA contributors start here.
   - Learn, add, and monitor our Regression tests w/open-source tools.
 
@@ -231,69 +200,98 @@ _For more information, please visit: [GitHub Manifesto](https://lmgtfy.app/?q=ho
 <small>**EXAMPLE:**</small>
 
 ```mermaid
-%%{init: { 'logLevel': 'debug', 'theme': 'base', 'gitGraph': {'showBranches': true, 'showCommitLabel': true, 'mainBranchName': 'rand0m'} } }%%
-gitGraph
-    %% rand0m (AI shell / PROD)
-    commit id:"commit_01"
-    commit id:"commit_02"
+%%{init: { 'logLevel': 'debug', 'theme': 'base', 'gitGraph': {'showBranches': true, 'showCommitLabel':true,'mainBranchName': 'rand0m'}} }%%
+  gitGraph
+        commit id:"commit_01"
+        commit id:"commit_02"
+        branch uti1ity
+        commit id:"commit_T01"
+        commit id:"commit_T02"
+        commit id:"commit_T03"
+        branch rend3r
+        commit id:"commit_K01"
+        commit type: HIGHLIGHT id:"commit_K02"
 
-    %% Core feeder repos (ordered)
-    branch uti1ity
-    commit id:"commit_K01"
-    commit id:"commit_K02"
-    commit id:"commit_K03"
+        checkout rand0m
+        commit id:"commit_03"
+        merge rend3r
+        commit id:"commit_05"
+        commit id:"commit_06"
+        merge uti1ity tag:"cherrypick"
 
-    branch orac1es
-    commit id:"commit_C01"
-    commit id:"commit_C02"
 
-    branch kn1ghts
-    commit id:"commit_O01"
-    commit type:HIGHLIGHT id:"commit_O02"
-
-    %% Experimental / learning repos
-    branch c1assr00m
-    commit id:"commit_U01"
-
-    %% Demo / testing repo (LAST, spans everything)
-    branch exp10re
-    commit id:"commit_E01"
-    commit id:"commit_E02"
-    commit id:"commit_E03"
-
-    %% Back to rand0m – controlled integrations
-    checkout rand0m
-    commit id:"commit_03"
-    merge c1assr00m
-    commit id:"commit_04"
-    merge orac1es
-    commit id:"commit_05"
-    merge uti1ity
-    commit id:"commit_06"
-    merge kn1ghts tag:"cherrypick"
-    merge exp10re tag:"demo"
-
-    commit type:REVERSE id:"head"
+        commit type:REVERSE id:"head"
 ```
 
 <small>😉 RUOK-CE</small>
 
-<!-- WORKFLOWS -->
+<!-- UTILITIES -->
 
-## <span style="color:#555555" name="workflows"><u> **TEST AUTOMATION** </u></span>
-
-**Xray <> Cucumber** <small>demo only</small>
+## <span style="color:#555555" name="utilities"><u> **BREAKDOWN** </u></span>
 
 ```mermaid
-graph LR
-A[ID Manual Tests for Automation in Jira] --> B
-B[Convert to Cucumber Tests in Jira] --> C
-C[Export Cucumber Feature files from Jira] --> D
-D[Impliment Step Definitions in Cypress] --> E
-E[Execute Cypress tests in CI environment] --> F[Report automation results to Jira]
-```
+classDiagram
+    Uti1ity <|-- Ana1izer
+    Uti1ity <|-- Insp3ct
+    Uti1ity <|-- Rend3r
+    Uti1ity <|-- Scaff0ld
+    Uti1ity <|-- Temp1ate
 
-<small>\*\*implimentation requires broader community engagement</small>
+    Uti1ity : +envt | uti1ity.rand0m.ai
+    Uti1ity : +org | Random Knights, XYZ
+    Uti1ity: -user() [uti1ity_name]@rand0m.ai
+    Uti1ity: -roles() Manager | Viewer | Admin
+
+    class Ana1izer{
+      +scan
+      +probe
+      +measure
+      +report
+      +audit
+      +forecast
+      -summarize()
+    }
+
+    class Insp3ct{
+      +analyze
+      +verify
+      +extend
+      +metadata
+      +reverse
+      +export
+      -sanitize()
+    }
+
+    class Rend3r{
+      +assemble
+      +mux
+      +encode
+      +scale
+      +package
+      +version
+      -audio/video()
+    }
+
+    class Scaff0ld{
+      +init
+      +structure
+      +profile
+      +template
+      +organize
+      +cleanup
+      -enforce()
+    }
+
+    class Temp1ate{
+      +inspect
+      +normalize
+      +standardize
+      +create
+      +mix
+      +export
+      -validate()
+    }
+```
 
 <!-- BADGES -->
 

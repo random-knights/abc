@@ -4,12 +4,12 @@
 <br />
 <div align="center">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://github.com/random-knights/.github/blob/main/assets/_c1assr00m/ce-drk.gif">
-    <source media="(prefers-color-scheme: light)" srcset="https://github.com/random-knights/.github/blob/main/assets/_c1assr00m/ce-lte.png">
-    <img alt="Shows a Day/Night themed markedown gif based on AM/PM." src="https://github.com/random-knights/.github/blob/main/assets/_c1assr00m/ce-drk.gif">
+    <source media="(prefers-color-scheme: dark)" srcset="https://github.com/random-knights/.github/blob/main/assets/orac1es/orac1es-drk.gif">
+    <source media="(prefers-color-scheme: light)" srcset="https://github.com/random-knights/.github/blob/main/assets/orac1es/orac1es-lte.png">
+    <img alt="Shows a Day/Night themed markedown gif based on AM/PM." src="https://github.com/random-knights/.github/blob/main/assets/orac1es/orac1es-drk.gif">
   </picture>
 
-<h3 align="center" style="color:#ff4124">Random Knights, XYZ - c1assr00m</h3>
+<h3 align="center" style="color:#ff4124">Random Knights, XYZ - orac1es</h3>
 
   <p align="center">
     rand0m.ai & randomly.engineering
@@ -27,77 +27,42 @@
 
 ## <span style="color:#FAAFA5"><u> **OVERVIEW** </u></span>
 
-[C1assr00m](https://c1assr00m.rand0m.ai) [`Engineering: intro into Development, AI, Automation, and S.T.E.A.M.`]
+[Orac1es](https://orac1es.rand0m.ai) [`Rand0m: Crysta1 Ba11 and Mythica1 AI`]
 </br>
 <small>from Random Knights, XYZ</small>
 
-... a structured learning environment designed to introduce contributors
-to software development, AI concepts, automation workflows, and S.T.E.A.M.
-foundations through guided missions and hands-on practice.
+... a feature-rich, delightfully quotable fortune-telling app that blends interactive storytelling, generative wisdom, expressive audio, and animated presentation. Choose from curated oracle personalities, randomize outcomes, or craft your own custom voices and visuals to create fortunes that feel alive, personal, and shareable.
 
-Instead of separate repositories, learning modules live as organized
-folders, allowing students to progress step-by-step while building
-real skills within a unified workspace.
+Designed for both playful discovery and creative control, Orac1es lets you experience, customize, and distribute moments of insight across devices and platforms.
 
 Featuring:
 
-- 🎓 Guided missions for step-by-step learning
-- 🧠 Foundations in AI, automation, and development workflows
-- 🧩 Practical hands-on coding exercises
-- 📚 Structured curriculum organized by skill level
-- 🤝 Safe environment for junior contributor growth
-- 🚀 Pathway into advanced Rand0m projects
+- 🔮 Interact to reveal your fortune
+- 🔊 Edit audio and animation
+- 🚨 Configurable oracles and stylization
+- 📦 Preset oracles with random advice
+- 📱 Create homescreen widgets
+- 🪄 Cast or share your creations
 
 <p align="center">
-  <img src="https://github.com/random-knights/.github/blob/main/assets/_c1assr00m/ruok-ce.gif" alt="Rand0m: C1assr00m" title="Random Knights, XYZ">
+  <img src="https://github.com/random-knights/.github/blob/main/assets/orac1es/orac1es.gif" alt="Rand0m: 0rac1es" title="Random Knights, XYZ">
 </p>
 
 ## <span style="color:#D8D8D8"><u> **POINTS OF CONTACT** </u></span>
 
-If any issues arise for any of the below mentioned areas, please open a focused issue or pull request in the public project queue.
+If any issues arise for any of the below mentioned areas, please draft a strongly worded email and never send it to: **<PUBLIC_CONTACT>**
 
 <div align="center">
 
 ## <span style="color:#858585"><u> **CORE SOLUTIONS** </u></span>
 
-| Stack          |     Versions     |   :chipmunk:    |
-| -------------- | :--------------: | :-------------: |
-| Flutter        |     ^3.38.3      |
-| Dart           |     ^3.10.1      |
-| DevTools       |     ^2.51.1      |
-| GoogleAI       |        v         |
-|                | gemini-2.5-flash |
-|                |  gemini-2.5-pro  |
-|                |   nano-banana    | **coming soon** |
-| OpenAI         |        v         |
-|                |     gpt-4.1      |
-|                |    gpt-5-nano    |
-|                |      gpt-4o      | **coming soon** |
-| **Perplexity** |       grok       | **coming soon** |
-| **Anthropic**  |      claude      | **coming soon** |
+| Stack    | Versions | :chipmunk: |
+| -------- | :------: | :--------: |
+| Flutter  | ^3.38.3  |
+| Dart     | ^3.10.1  |
+| DevTools | ^2.51.1  |
 
 </div>
-
-## 🏫 <span style="color:#555555"><u> **PUBLIC DOCS MAP** </u></span>
-
-- [AIEDS](architecture/aieds/)
-  - Public AI Environmental Disclosure Standard drafts and supporting notes.
-- [Earth](architecture/earth/)
-  - Earth feature specs, source attributions, data governance notes, and provider contracts.
-- [Ecosystem](architecture/ecosystem/)
-  - Public product architecture, app-shell contracts, and naming maps.
-- [Packages](architecture/packages/)
-  - Public package boundaries and scaffold notes.
-- [Automation](automation/)
-  - Automation, BDD, naming, and classroom process guidance.
-- [Branding](branding/)
-  - Public theme, icon, and brand documentation.
-- [Decisions](decisions/)
-  - Public architecture decision records.
-- [Apps and experiences](apps/)
-  - Companion public docs for kn1ghts, orac1es, rand0m, uti1ity, and c1assr00m.
-
-Internal operations, deployment details, security posture, environment variables, private identities, roadmap state, and historical records stay outside this public docs repo.
 
 ## 🏫 <span style="color:#555555"><u> **LEARN + PLAY + CREATE** </u></span>
 
@@ -109,41 +74,30 @@ Internal operations, deployment details, security posture, environment variables
     - <small>subject to change ... randomly</small>
 
 - kn1ghts
-  - Expert level. Everything combined, all in 1 app.
-  - A production-like project where best practices matter.
+  - \*\*Expert level. Everything combined, all in 1 app.
+  - \*\*A production-like project where best practices matter.
   - Junior contributors observe only.
 
-- orac1es
-  - A Beginner level introduction to Flutter App concepts through:
-    - Shell - the App template used for all current projects.
-    - Intro to animations, styling, and Easter-Eggs.
-    - Small interactive Crystal Ball "Orac1es".
-  - Companion _Rabbit R1_ app Creation mini-project.
+<span style="color:#FF4124">
+
+- **orac1es**
+  - **A Beginner level introduction to Flutter App concepts through:**
+    - **Shell - the App template used for all current projects.**
+    - **Intro to animations, styling, and Easter-Eggs.**
+    - **Small interactive Crystal Ball "Orac1es".**
+  - **Companion _Rabbit R1_ app Creation mini-project.**
+
+</span>
 
 - uti1ity
   - Advanced tools and scripts (batch, ffmpeg, automation, and more).
   - Primarily reference and inspiration.
-  - First classroom lab: [Render / Media Composition](labs/render-media-composition.md)
 
-## Classroom FFmpeg Boundary
+- c1assr00m
+  - The formal learning space. All junior contributors start here.
+  - Missions live as folders, not separate repos, keeping things simple and focused.
 
-Render/media labs require students to install FFmpeg locally from the official
-FFmpeg download page: https://ffmpeg.org/download.html
-
-Keep FFmpeg on PATH for classroom exercises. Do not commit `ffmpeg.exe`,
-`ffprobe.exe`, generated videos, or other large render outputs to this repo.
-`REND3R.bat` and related scripts are classroom-only learning materials, not
-production Rand0m runtime dependencies.
-
-<span style="color:#FF4124">
-
-- **c1assr00m**
-  - **The formal learning space. All junior contributors start here.**
-  - **Missions live as folders, not separate repos, keeping things simple and focused.**
-
-</span>
-
-- quality engineering
+- engineering reviewer
   - The formal testing space. All QA contributors start here.
   - Learn, add, and monitor our Regression tests w/open-source tools.
 
@@ -231,69 +185,100 @@ _For more information, please visit: [GitHub Manifesto](https://lmgtfy.app/?q=ho
 <small>**EXAMPLE:**</small>
 
 ```mermaid
-%%{init: { 'logLevel': 'debug', 'theme': 'base', 'gitGraph': {'showBranches': true, 'showCommitLabel': true, 'mainBranchName': 'rand0m'} } }%%
-gitGraph
-    %% rand0m (AI shell / PROD)
-    commit id:"commit_01"
-    commit id:"commit_02"
+%%{init: { 'logLevel': 'debug', 'theme': 'base', 'gitGraph': {'showBranches': true, 'showCommitLabel':true,'mainBranchName': 'rand0m'}} }%%
+  gitGraph
+        commit id:"commit_01"
+        commit id:"commit_02"
+        branch ma6ic
+        commit id:"commit_T01"
+        commit id:"commit_T02"
+        commit id:"commit_T03"
+        branch orac1es
+        commit id:"commit_K01"
+        commit type: HIGHLIGHT id:"commit_K02"
 
-    %% Core feeder repos (ordered)
-    branch uti1ity
-    commit id:"commit_K01"
-    commit id:"commit_K02"
-    commit id:"commit_K03"
+        checkout rand0m
+        commit id:"commit_03"
+        merge orac1es
+        commit id:"commit_05"
+        commit id:"commit_06"
+        merge ma6ic tag:"cherrypick"
 
-    branch orac1es
-    commit id:"commit_C01"
-    commit id:"commit_C02"
 
-    branch kn1ghts
-    commit id:"commit_O01"
-    commit type:HIGHLIGHT id:"commit_O02"
-
-    %% Experimental / learning repos
-    branch c1assr00m
-    commit id:"commit_U01"
-
-    %% Demo / testing repo (LAST, spans everything)
-    branch exp10re
-    commit id:"commit_E01"
-    commit id:"commit_E02"
-    commit id:"commit_E03"
-
-    %% Back to rand0m – controlled integrations
-    checkout rand0m
-    commit id:"commit_03"
-    merge c1assr00m
-    commit id:"commit_04"
-    merge orac1es
-    commit id:"commit_05"
-    merge uti1ity
-    commit id:"commit_06"
-    merge kn1ghts tag:"cherrypick"
-    merge exp10re tag:"demo"
-
-    commit type:REVERSE id:"head"
+        commit type:REVERSE id:"head"
 ```
 
 <small>😉 RUOK-CE</small>
 
-<!-- WORKFLOWS -->
+<!-- ORACLES -->
 
-## <span style="color:#555555" name="workflows"><u> **TEST AUTOMATION** </u></span>
-
-**Xray <> Cucumber** <small>demo only</small>
+## <span style="color:#555555" name="oracles"><u> **BREAKDOWN** </u></span>
 
 ```mermaid
-graph LR
-A[ID Manual Tests for Automation in Jira] --> B
-B[Convert to Cucumber Tests in Jira] --> C
-C[Export Cucumber Feature files from Jira] --> D
-D[Impliment Step Definitions in Cypress] --> E
-E[Execute Cypress tests in CI environment] --> F[Report automation results to Jira]
+classDiagram
+    Orac1es <|-- Oracle
+    Orac1es <|-- Vo1ce
+    Orac1es <|-- Anim8r
+    Orac1es <|-- Cast3r
+    Orac1es <|-- Widgetz
+
+    Orac1es : +envt | orac1es.rand0m.ai
+    Orac1es : +org | Random Knights, XYZ
+    Orac1es : -user() [orac1e_name]@rand0m.ai
+    Orac1es : -modes() Preset | Random | Custom | Creator
+
+    class Oracle{
+      +select
+      +randomize
+      +customize
+      +compose
+      +quote
+      +save
+      -invoke()
+    }
+
+    class Vo1ce{
+      +synthesize
+      +modulate
+      +filter
+      +loop
+      +sync
+      +export
+      -calibrate()
+    }
+
+    class Anim8r{
+      +animate
+      +transition
+      +pulse
+      +glow
+      +timing
+      +render
+      -stage()
+    }
+
+    class Cast3r{
+      +broadcast
+      +mirror
+      +stream
+      +pair
+      +handoff
+      +disconnect
+      -negotiate()
+    }
+
+    class Widgetz{
+      +embed
+      +resize
+      +theme
+      +refresh
+      +snapshot
+      +share
+      -sandbox()
+    }
 ```
 
-<small>\*\*implimentation requires broader community engagement</small>
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- BADGES -->
 

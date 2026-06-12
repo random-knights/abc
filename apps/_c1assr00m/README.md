@@ -27,12 +27,12 @@
 
 ## <span style="color:#FAAFA5"><u> **OVERVIEW** </u></span>
 
-[C1assr00m](https://c1assr00m.rand0m.ai) [`Engineering: intro into Development, AI, Automation, and S.T.E.A.M.`]
+[C1assr00m](https://c1assr00m.rand0m.ai) [`Eng1neer1ng: intro into Deve10pment, AI, Automation, and S.T.E.A.M.`]
 </br>
 <small>from Random Knights, XYZ</small>
 
 ... a structured learning environment designed to introduce contributors
-to software development, AI concepts, automation workflows, and S.T.E.A.M.
+to software development, AI concepts, automation processes, and S.T.E.A.M.
 foundations through guided missions and hands-on practice.
 
 Instead of separate repositories, learning modules live as organized
@@ -42,7 +42,7 @@ real skills within a unified workspace.
 Featuring:
 
 - 🎓 Guided missions for step-by-step learning
-- 🧠 Foundations in AI, automation, and development workflows
+- 🧠 Foundations in AI, automation, and development processes
 - 🧩 Practical hands-on coding exercises
 - 📚 Structured curriculum organized by skill level
 - 🤝 Safe environment for junior contributor growth
@@ -54,7 +54,7 @@ Featuring:
 
 ## <span style="color:#D8D8D8"><u> **POINTS OF CONTACT** </u></span>
 
-If any issues arise for any of the below mentioned areas, please open a focused issue or pull request in the public project queue.
+If any issues arise for any of the below mentioned areas, please draft a strongly worded email and never send it to: **<PUBLIC_CONTACT>**
 
 <div align="center">
 
@@ -77,27 +77,6 @@ If any issues arise for any of the below mentioned areas, please open a focused 
 | **Anthropic**  |      claude      | **coming soon** |
 
 </div>
-
-## 🏫 <span style="color:#555555"><u> **PUBLIC DOCS MAP** </u></span>
-
-- [AIEDS](architecture/aieds/)
-  - Public AI Environmental Disclosure Standard drafts and supporting notes.
-- [Earth](architecture/earth/)
-  - Earth feature specs, source attributions, data governance notes, and provider contracts.
-- [Ecosystem](architecture/ecosystem/)
-  - Public product architecture, app-shell contracts, and naming maps.
-- [Packages](architecture/packages/)
-  - Public package boundaries and scaffold notes.
-- [Automation](automation/)
-  - Automation, BDD, naming, and classroom process guidance.
-- [Branding](branding/)
-  - Public theme, icon, and brand documentation.
-- [Decisions](decisions/)
-  - Public architecture decision records.
-- [Apps and experiences](apps/)
-  - Companion public docs for kn1ghts, orac1es, rand0m, uti1ity, and c1assr00m.
-
-Internal operations, deployment details, security posture, environment variables, private identities, roadmap state, and historical records stay outside this public docs repo.
 
 ## 🏫 <span style="color:#555555"><u> **LEARN + PLAY + CREATE** </u></span>
 
@@ -123,17 +102,6 @@ Internal operations, deployment details, security posture, environment variables
 - uti1ity
   - Advanced tools and scripts (batch, ffmpeg, automation, and more).
   - Primarily reference and inspiration.
-  - First classroom lab: [Render / Media Composition](labs/render-media-composition.md)
-
-## Classroom FFmpeg Boundary
-
-Render/media labs require students to install FFmpeg locally from the official
-FFmpeg download page: https://ffmpeg.org/download.html
-
-Keep FFmpeg on PATH for classroom exercises. Do not commit `ffmpeg.exe`,
-`ffprobe.exe`, generated videos, or other large render outputs to this repo.
-`REND3R.bat` and related scripts are classroom-only learning materials, not
-production Rand0m runtime dependencies.
 
 <span style="color:#FF4124">
 
@@ -143,7 +111,7 @@ production Rand0m runtime dependencies.
 
 </span>
 
-- quality engineering
+- engineering reviewer
   - The formal testing space. All QA contributors start here.
   - Learn, add, and monitor our Regression tests w/open-source tools.
 
@@ -278,9 +246,9 @@ gitGraph
 
 <small>😉 RUOK-CE</small>
 
-<!-- WORKFLOWS -->
+<!-- processes -->
 
-## <span style="color:#555555" name="workflows"><u> **TEST AUTOMATION** </u></span>
+## <span style="color:#555555" name="processes"><u> **TEST AUTOMATION** </u></span>
 
 **Xray <> Cucumber** <small>demo only</small>
 

@@ -80,40 +80,23 @@ If any issues arise for any of the below mentioned areas, please draft a strongl
 
 ## 🏫 <span style="color:#555555"><u> **LEARN + PLAY + CREATE** </u></span>
 
-- rand0m
-  - A true sandbox. Experiments, ideas, and creative chaos are encouraged.
-  - Mid level. AI, Agents, and Hive DB History.
-  - A pre-production project t ostep up your AI game.
-  - Junior contributors observe first, then assist gradually.
-    - <small>subject to change ... randomly</small>
-
-- kn1ghts
-  - Expert level. Everything combined, all in 1 app.
-  - A production-like project where best practices matter.
-  - Junior contributors observe only.
-
-- orac1es
-  - A Beginner level introduction to Flutter App concepts through:
-    - Shell - the App template used for all current projects.
-    - Intro to animations, styling, and Easter-Eggs.
-    - Small interactive Crystal Ball "Orac1es".
-  - Companion _Rabbit R1_ app Creation mini-project.
-
-- uti1ity
-  - Advanced tools and scripts (batch, ffmpeg, automation, and more).
-  - Primarily reference and inspiration.
-
 <span style="color:#FF4124">
 
-- **c1assr00m**
-  - **The formal learning space. All junior contributors start here.**
-  - **Missions live as folders, not separate repos, keeping things simple and focused.**
+- **c1assr00m — start here**
+  - The formal learning space. All junior contributors start here.
+  - Lessons live as files in [`lessons/`](../../lessons/), keeping things simple and focused.
+  - Begin with [lessons/intro.md](../../lessons/intro.md).
 
 </span>
 
-- engineering reviewer
+- rand0m
+  - The main production app — [rand0m.ai](https://rand0m.ai).
+  - AI, agents, Earth globe, and live data layers.
+  - Contributors join after completing the classroom path.
+
+- quality engineering
   - The formal testing space. All QA contributors start here.
-  - Learn, add, and monitor our Regression tests w/open-source tools.
+  - Learn, add, and monitor our regression tests with open-source tools.
 
 <small>\*\*models, agents, 'kitts', and stuff is subject to change; all projects contain easter-eggs ga10re, but first you must exp10re\*\*</small>
 
@@ -196,7 +179,7 @@ Don't forget to give the project a star! Thanks again!
 
 _For more information, please visit: [GitHub Manifesto](https://lmgtfy.app/?q=how+to+use+github)_
 
-<small>**EXAMPLE:**</small>
+<small>**EXAMPLE — classroom to main flow:**</small>
 
 ```mermaid
 %%{init: { 'logLevel': 'debug', 'theme': 'base', 'gitGraph': {'showBranches': true, 'showCommitLabel': true, 'mainBranchName': 'rand0m'} } }%%
@@ -205,41 +188,20 @@ gitGraph
     commit id:"commit_01"
     commit id:"commit_02"
 
-    %% Core feeder repos (ordered)
-    branch uti1ity
-    commit id:"commit_K01"
-    commit id:"commit_K02"
-    commit id:"commit_K03"
-
-    branch orac1es
-    commit id:"commit_C01"
-    commit id:"commit_C02"
-
-    branch kn1ghts
-    commit id:"commit_O01"
-    commit type:HIGHLIGHT id:"commit_O02"
-
-    %% Experimental / learning repos
+    %% Classroom and QA paths
     branch c1assr00m
-    commit id:"commit_U01"
+    commit id:"learn_01"
+    commit id:"learn_02"
 
-    %% Demo / testing repo (LAST, spans everything)
-    branch exp10re
-    commit id:"commit_E01"
-    commit id:"commit_E02"
-    commit id:"commit_E03"
+    branch qa
+    commit id:"qa_01"
+    commit type:HIGHLIGHT id:"qa_02"
 
-    %% Back to rand0m – controlled integrations
+    %% Back to rand0m – reviewed integrations only
     checkout rand0m
     commit id:"commit_03"
-    merge c1assr00m
+    merge qa tag:"reviewed"
     commit id:"commit_04"
-    merge orac1es
-    commit id:"commit_05"
-    merge uti1ity
-    commit id:"commit_06"
-    merge kn1ghts tag:"cherrypick"
-    merge exp10re tag:"demo"
 
     commit type:REVERSE id:"head"
 ```

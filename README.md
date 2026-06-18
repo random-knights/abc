@@ -80,72 +80,51 @@ If any issues arise for any of the below mentioned areas, please open a focused 
 
 ## 🏫 <span style="color:#555555"><u> **PUBLIC DOCS MAP** </u></span>
 
-- [AIEDS](architecture/aieds/)
-  - Public AI Environmental Disclosure Standard drafts and supporting notes.
-- [Earth](architecture/earth/)
-  - Earth feature specs, source attributions, data governance notes, and provider contracts.
-- [Ecosystem](architecture/ecosystem/)
-  - Public product architecture, app-shell contracts, and naming maps.
-- [Packages](architecture/packages/)
-  - Public package boundaries and scaffold notes.
-- [Automation](automation/)
-  - Automation, BDD, naming, and classroom process guidance.
 - [Branding](branding/)
   - Public theme, icon, and brand documentation.
-- [Decisions](decisions/)
-  - Public architecture decision records.
-- [Apps and experiences](apps/)
-  - Companion public docs for kn1ghts, orac1es, rand0m, uti1ity, and c1assr00m.
+- [Lessons](lessons/)
+  - Classroom lessons — guided, runnable, and sandboxed. Start with `intro.md`.
+- [Labs](labs/)
+  - Standalone lab exercises and experiments.
+- [C1assr00m app](apps/_c1assr00m/)
+  - Companion docs for the C1assr00m learning environment.
+
+Architecture specs, automation standards, decision records, and product docs live in
+[READMORE](https://github.com/random-knights/.github/blob/main/READMORE) (contributor-accessible).
+Internal operations, deployment details, security posture, environment variables,
+private identities, and roadmap state stay in READLESS (internal only).
 
 Internal operations, deployment details, security posture, environment variables, private identities, roadmap state, and historical records stay outside this public docs repo.
 
 ## 🏫 <span style="color:#555555"><u> **LEARN + PLAY + CREATE** </u></span>
 
+<span style="color:#FF4124">
+
+- **c1assr00m**
+  - **The formal learning space. All junior contributors start here.**
+  - **Lessons live as files in `lessons/`, keeping things simple and focused.**
+  - Start with [lessons/intro.md](lessons/intro.md).
+
+</span>
+
 - rand0m
-  - A true sandbox. Experiments, ideas, and creative chaos are encouraged.
-  - Mid level. AI, Agents, and Hive DB History.
-  - A pre-production project t ostep up your AI game.
-  - Junior contributors observe first, then assist gradually.
-    - <small>subject to change ... randomly</small>
+  - The main production app — [rand0m.ai](https://rand0m.ai).
+  - AI, agents, Earth globe, and live data layers.
+  - Contributors join after completing the classroom path.
 
-- kn1ghts
-  - Expert level. Everything combined, all in 1 app.
-  - A production-like project where best practices matter.
-  - Junior contributors observe only.
-
-- orac1es
-  - A Beginner level introduction to Flutter App concepts through:
-    - Shell - the App template used for all current projects.
-    - Intro to animations, styling, and Easter-Eggs.
-    - Small interactive Crystal Ball "Orac1es".
-  - Companion _Rabbit R1_ app Creation mini-project.
-
-- uti1ity
-  - Advanced tools and scripts (batch, ffmpeg, automation, and more).
-  - Primarily reference and inspiration.
-  - First classroom lab: [Render / Media Composition](labs/render-media-composition.md)
+- quality engineering
+  - The formal testing space. All QA contributors start here.
+  - Learn, add, and monitor our regression tests with open-source tools.
 
 ## Classroom FFmpeg Boundary
 
-Render/media labs require students to install FFmpeg locally from the official
-FFmpeg download page: https://ffmpeg.org/download.html
+Render and media labs require FFmpeg installed locally from the official
+[FFmpeg download page](https://ffmpeg.org/download.html).
 
 Keep FFmpeg on PATH for classroom exercises. Do not commit `ffmpeg.exe`,
 `ffprobe.exe`, generated videos, or other large render outputs to this repo.
 `REND3R.bat` and related scripts are classroom-only learning materials, not
 production Rand0m runtime dependencies.
-
-<span style="color:#FF4124">
-
-- **c1assr00m**
-  - **The formal learning space. All junior contributors start here.**
-  - **Missions live as folders, not separate repos, keeping things simple and focused.**
-
-</span>
-
-- quality engineering
-  - The formal testing space. All QA contributors start here.
-  - Learn, add, and monitor our Regression tests w/open-source tools.
 
 <small>\*\*models, agents, 'kitts', and stuff is subject to change; all projects contain easter-eggs ga10re, but first you must exp10re\*\*</small>
 
@@ -228,7 +207,7 @@ Don't forget to give the project a star! Thanks again!
 
 _For more information, please visit: [GitHub Manifesto](https://lmgtfy.app/?q=how+to+use+github)_
 
-<small>**EXAMPLE:**</small>
+<small>**EXAMPLE — classroom to main flow:**</small>
 
 ```mermaid
 %%{init: { 'logLevel': 'debug', 'theme': 'base', 'gitGraph': {'showBranches': true, 'showCommitLabel': true, 'mainBranchName': 'rand0m'} } }%%
@@ -237,41 +216,20 @@ gitGraph
     commit id:"commit_01"
     commit id:"commit_02"
 
-    %% Core feeder repos (ordered)
-    branch uti1ity
-    commit id:"commit_K01"
-    commit id:"commit_K02"
-    commit id:"commit_K03"
-
-    branch orac1es
-    commit id:"commit_C01"
-    commit id:"commit_C02"
-
-    branch kn1ghts
-    commit id:"commit_O01"
-    commit type:HIGHLIGHT id:"commit_O02"
-
-    %% Experimental / learning repos
+    %% Classroom and QA
     branch c1assr00m
-    commit id:"commit_U01"
+    commit id:"learn_01"
+    commit id:"learn_02"
 
-    %% Demo / testing repo (LAST, spans everything)
-    branch exp10re
-    commit id:"commit_E01"
-    commit id:"commit_E02"
-    commit id:"commit_E03"
+    branch qa
+    commit id:"qa_01"
+    commit type:HIGHLIGHT id:"qa_02"
 
     %% Back to rand0m – controlled integrations
     checkout rand0m
     commit id:"commit_03"
-    merge c1assr00m
+    merge qa tag:"reviewed"
     commit id:"commit_04"
-    merge orac1es
-    commit id:"commit_05"
-    merge uti1ity
-    commit id:"commit_06"
-    merge kn1ghts tag:"cherrypick"
-    merge exp10re tag:"demo"
 
     commit type:REVERSE id:"head"
 ```

@@ -27,7 +27,7 @@ Do not use private user files or production secrets.
 Start with this command shape:
 
 ```powershell
-ffmpeg -stream_loop -1 -i input/sample-video.mp4 -stream_loop -1 -i input/sample-audio.mp3 -map 0:v:0 -map 1:a:0 -c:v copy -c:a aac -t 8 -movflags +faststart output/rand0m-render-preview.mp4
+ffmpeg -stream_loop -1 -i input/sample-video.mp4 -stream_loop -1 -i input/sample-audio.mp3 -map 0:v:0 -map 1:a:0 -c:v copy -c:a aac -t 8 -movflags +faststart output/classroom-render-preview.mp4
 ```
 
 Expected result:
@@ -54,7 +54,7 @@ Practice safe output naming:
 | Input name | Safe output base |
 | ---------- | ---------------- |
 | `hello render!.mp4` | `hello-render` |
-| `rand0m preview` | `rand0m-preview` |
+| `classroom preview` | `classroom-preview` |
 | `../escape` | reject |
 | `folder\escape` | reject |
 
@@ -62,7 +62,7 @@ Expected result:
 
 - output names contain only letters, numbers, `_`, and `-`
 - path traversal is rejected
-- empty names fall back to `rand0m-render-preview`
+- empty names fall back to `classroom-render-preview`
 
 ## Exercise 4: REND3R.bat Wrapper
 
@@ -87,7 +87,7 @@ if errorlevel 1 (
 if not exist output mkdir output
 
 echo About to render a classroom preview.
-echo Output: output\rand0m-render-preview.mp4
+echo Output: output\classroom-render-preview.mp4
 pause
 ```
 

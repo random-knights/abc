@@ -1,0 +1,14 @@
+# Binaries / executables never belong in the repo.
+# For the render lab, install ffmpeg from PATH instead — see
+# labs/render-media-composition/README.md
+*.exe
+*.dll
+*.dylib
+*.so
+
+# Render lab runtime: learner inputs + generated outputs stay local
+labs/render-media-composition/workspace/
+
+# Stray render artifacts anywhere in the repo
+*.mp4
+*.mov

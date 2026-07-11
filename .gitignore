@@ -34,3 +34,6 @@ venv/
 .DS_Store
 Thumbs.db
 .vscode/
+
+# Agent worktrees (local only)
+.worktrees/

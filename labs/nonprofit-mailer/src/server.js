@@ -127,20 +127,28 @@ async function runPipeline() {
     document.getElementById('step-'+id).className = 'step error';
     document.getElementById('sc-'+id).innerHTML = '<span style="color:#f87171">'+msg+'</span>';
   }
+  // Fetch wrapper: surfaces HTTP status and server {error} payloads as
+  // thrown errors instead of letting callers .map an error object.
+  async function callApi(url, payload) {
+    const res = await fetch(url, {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
+    let data = null;
+    try { data = await res.json(); } catch (ignored) {}
+    if (!res.ok) throw new Error((data && data.error) ? data.error : 'Server error (HTTP '+res.status+') on '+url);
+    if (data && data.error) throw new Error(data.error);
+    return data;
+  }
 
   try {
     // Step 1
     addStep(1, 'Step 1 of 5 — Generating subject line variants');
-    const s1 = await fetch('/api/subjects', {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(campaign)});
-    const subjects = await s1.json();
+    const subjects = await callApi('/api/subjects', campaign);
     doneStep(1, subjects.subjects.map(s =>
       '<div class="subject-card"><div><div class="subject-text">'+s.text+'</div><span class="tag tag-y">'+s.hook+'</span><span class="tag tag-g">'+s.predicted_open_rate+' est. open rate</span></div></div>'
     ).join(''));
 
     // Step 2
     addStep(2, 'Step 2 of 5 — Scoring and ranking subject lines');
-    const s2 = await fetch('/api/score', {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({subjects:subjects.subjects,campaign})});
-    const scoring = await s2.json();
+    const scoring = await callApi('/api/score', {subjects:subjects.subjects,campaign});
     doneStep(2, '<div style="margin-bottom:6px;font-size:12px;color:#50c878;font-weight:700">Winner: "'+scoring.winner+'"</div>'+
       scoring.scored.map(s =>
         '<div class="subject-card'+(s.text===scoring.winner?' winner':'')+'"><div style="flex:1"><div class="subject-text">'+s.text+'</div><div style="font-size:10px;color:#555;margin-top:2px">'+s.recommendation+'</div></div><div class="grade" style="color:'+(s.total>=35?'#50c878':s.total>=28?'#f59e0b':'#f87171')+'">'+s.grade+'</div></div>'
@@ -148,15 +156,18 @@ async function runPipeline() {
 
     // Step 3
     addStep(3, 'Step 3 of 5 — Generating email body');
-    const s3 = await fetch('/api/email', {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({campaign,winner:scoring.winner})});
-    const email = await s3.json();
-    doneStep(3, '<div style="font-size:11px;color:#888;margin-bottom:6px">'+email.word_count+' words · '+email.reading_time+' read</div><div class="email-preview">Subject: '+scoring.winner+'\n\n'+email.full_text+'</div>');
+    const email = await callApi('/api/email', {campaign,winner:scoring.winner});
+    // NOTE: this client script lives inside a SERVER-SIDE template literal,
+    // so a single-backslash n here reaches the browser as a REAL newline,
+    // producing an unterminated string literal that killed the whole script
+    // (runPipeline undefined). The double-backslash form delivers a literal
+    // newline escape to the client; pre-wrap .email-preview renders it.
+    doneStep(3, '<div style="font-size:11px;color:#888;margin-bottom:6px">'+email.word_count+' words · '+email.reading_time+' read</div><div class="email-preview">Subject: '+scoring.winner+'\\n\\n'+email.full_text+'</div>');
 
     // Step 4
     addStep(4, 'Step 4 of 5 — Building A/B test plan');
     const winIdx = subjects.subjects.findIndex(s => s.text === scoring.winner);
-    const s4 = await fetch('/api/abtest', {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({campaign,subjects:subjects.subjects,winnerIndex:winIdx>=0?winIdx:0})});
-    const test = await s4.json();
+    const test = await callApi('/api/abtest', {campaign,subjects:subjects.subjects,winnerIndex:winIdx>=0?winIdx:0});
     doneStep(4, '<div style="font-size:12px;line-height:1.7;color:#b0b5c8">'+
       '<strong style="color:#c8cde0">Hypothesis:</strong> '+test.hypothesis+'<br>'+
       '<strong style="color:#c8cde0">Duration:</strong> '+test.test_duration+' &nbsp;·&nbsp; <strong style="color:#c8cde0">Split:</strong> '+test.sample_split+'<br>'+
@@ -165,8 +176,7 @@ async function runPipeline() {
 
     // Step 5
     addStep(5, 'Step 5 of 5 — Running eval framework');
-    const s5 = await fetch('/api/eval', {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({emailBody:email,campaign})});
-    const ev = await s5.json();
+    const ev = await callApi('/api/eval', {emailBody:email,campaign});
     const gradeColor = ev.grade.startsWith('A')?'#50c878':ev.grade.startsWith('B')?'#f59e0b':'#f87171';
     doneStep(5, '<div class="metric-grid">'+
       Object.entries(ev.scores).map(([k,v]) =>
@@ -226,7 +236,10 @@ const server = http.createServer(async (req, res) => {
         setJSON(); res.end(JSON.stringify(result)); return;
       }
     } catch (e) {
-      setJSON(); res.end(JSON.stringify({ error: e.message })); return;
+      // A handler failure is a server error - say so with the status code
+      // (a 200 wrapping {error} hid failures from res.ok checks).
+      res.writeHead(500, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ error: e.message })); return;
     }
   }
 

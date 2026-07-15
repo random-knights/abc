@@ -3,6 +3,23 @@ import Anthropic from '@anthropic-ai/sdk';
 const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
 
 /**
+ * Parse a model response as JSON, failing legibly. A response cut off by the
+ * max_tokens ceiling produces invalid JSON ("Unterminated string...") - name
+ * that cause instead of leaking a bare parse error to the UI.
+ */
+function parseModelJson(res, step) {
+  const raw = (res.content?.[0]?.text ?? '').replace(/```json|```/g, '').trim();
+  try {
+    return JSON.parse(raw);
+  } catch (e) {
+    if (res.stop_reason === 'max_tokens') {
+      throw new Error(`${step}: model response was truncated by the token limit - raise max_tokens.`);
+    }
+    throw new Error(`${step}: model did not return valid JSON (${e.message}).`);
+  }
+}
+
+/**
  * Generate subject line variants for a campaign
  */
 export async function generateSubjectLines(campaign, count = 5) {
@@ -31,12 +48,11 @@ Respond ONLY with JSON, no markdown:
 
   const res = await client.messages.create({
     model: 'claude-sonnet-4-6',
-    max_tokens: 1000,
+    max_tokens: 2000,
     messages: [{ role: 'user', content: prompt }]
   });
 
-  const raw = res.content[0].text.replace(/```json|```/g, '').trim();
-  return JSON.parse(raw);
+  return parseModelJson(res, 'subject generation');
 }
 
 /**
@@ -76,12 +92,11 @@ Respond ONLY with JSON, no markdown:
 
   const res = await client.messages.create({
     model: 'claude-sonnet-4-6',
-    max_tokens: 1500,
+    max_tokens: 2000,
     messages: [{ role: 'user', content: prompt }]
   });
 
-  const raw = res.content[0].text.replace(/```json|```/g, '').trim();
-  return JSON.parse(raw);
+  return parseModelJson(res, 'subject scoring');
 }
 
 /**
@@ -124,12 +139,11 @@ Respond ONLY with JSON, no markdown:
 
   const res = await client.messages.create({
     model: 'claude-sonnet-4-6',
-    max_tokens: 1500,
+    max_tokens: 2000,
     messages: [{ role: 'user', content: prompt }]
   });
 
-  const raw = res.content[0].text.replace(/```json|```/g, '').trim();
-  return JSON.parse(raw);
+  return parseModelJson(res, 'email body generation');
 }
 
 /**
@@ -171,12 +185,11 @@ Respond ONLY with JSON, no markdown:
 
   const res = await client.messages.create({
     model: 'claude-sonnet-4-6',
-    max_tokens: 1000,
+    max_tokens: 4000,
     messages: [{ role: 'user', content: prompt }]
   });
 
-  const raw = res.content[0].text.replace(/```json|```/g, '').trim();
-  return JSON.parse(raw);
+  return parseModelJson(res, 'A/B test plan');
 }
 
 /**
@@ -223,10 +236,9 @@ Respond ONLY with JSON, no markdown:
 
   const res = await client.messages.create({
     model: 'claude-sonnet-4-6',
-    max_tokens: 1000,
+    max_tokens: 2000,
     messages: [{ role: 'user', content: prompt }]
   });
 
-  const raw = res.content[0].text.replace(/```json|```/g, '').trim();
-  return JSON.parse(raw);
+  return parseModelJson(res, 'eval');
 }

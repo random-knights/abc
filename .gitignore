@@ -37,3 +37,4 @@ Thumbs.db
 
 # Agent worktrees (local only)
 .worktrees/
+node_modules/

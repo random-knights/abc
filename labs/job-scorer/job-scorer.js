@@ -1,34 +1,22 @@
 #!/usr/bin/env node
 /**
  * Job Fit Scorer — Local Server
- *
+ * 
  * SETUP (one time):
  *   1. Set your Anthropic API key:
  *      Mac/Linux:  export ANTHROPIC_API_KEY=sk-ant-...
  *      Windows:    set ANTHROPIC_API_KEY=sk-ant-...
- *
+ * 
  * RUN:
  *   node job-scorer.js
  *   Then open: http://localhost:3000
  */
 
-const http = require("http");
-const https = require("https");
+const http = require('http');
+const https = require('https');
 
 const PORT = 3000;
 const API_KEY = process.env.ANTHROPIC_API_KEY;
-
-const PROFILE = process.env.CANDIDATE_PROFILE || `
-YOUR PROFILE HERE
-
-BACKGROUND: [Your background summary]
-SALARY: [Your salary requirements and dealbreakers]
-TECH: [Your primary and secondary tech stack]
-GOALS: [Target roles and why]
-STRENGTHS: [What you bring that others do not]
-GAPS: [Known gaps to flag honestly]
-MISSION: [Industries and missions that energize you]
-`;
 
 const HTML = `<!DOCTYPE html>
 <html lang="en">
@@ -89,8 +77,8 @@ textarea::placeholder{color:#3a3d50}
 </head>
 <body>
 <div class="topbar">
-  <div><h1>JOB FIT SCORER -- AI Career Tool</h1><p>Scored against your profile -- customize PROFILE above</p></div>
-  <span class="key-status ${API_KEY ? "key-ok" : "key-missing"}">${API_KEY ? "✅ API key loaded" : "⚠️ No API key — set ANTHROPIC_API_KEY"}</span>
+  <div><h1>JOB FIT SCORER -- AI Career Tool</h1><p>Paste a job description and your resume to get an instant match score.</p></div>
+  <span class="key-status ${API_KEY ? 'key-ok' : 'key-missing'}">${API_KEY ? '✅ API key loaded' : '⚠️ No API key — set ANTHROPIC_API_KEY'}</span>
 </div>
 <div class="main">
   <div class="panel">
@@ -99,6 +87,20 @@ textarea::placeholder{color:#3a3d50}
     <div class="btn-row">
       <button class="btn btn-score" id="sbtn" onclick="score()">⚡ Score This Job</button>
       <button class="btn btn-clear" onclick="clearJob()">Clear</button>
+    </div>
+    <div style="padding:10px 16px 14px;border-top:1px solid #2a2d3e;display:flex;flex-direction:column;gap:10px;">
+      <div style="display:flex;align-items:center;justify-content:space-between;">
+        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#a78bfa;">Your Materials (optional but recommended)</div>
+        <div style="font-size:10px;color:#444;">Paste for personalized scoring</div>
+      </div>
+      <div>
+        <div style="font-size:10px;color:#666;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:4px;">Resume or Background Summary</div>
+        <textarea id="resume-input" style="width:100%;height:120px;background:#1a1c26;border:1px solid #2a2d3e;color:#b0b5c8;font-size:12px;font-family:Segoe UI,Arial,sans-serif;border-radius:6px;padding:8px 10px;resize:none;outline:none;line-height:1.5;" placeholder="Paste your resume or background summary here -- scorer will flag specific gaps and strengths against the role..."></textarea>
+      </div>
+      <div>
+        <div style="font-size:10px;color:#666;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:4px;">Cover Letter</div>
+        <textarea id="cover-input" style="width:100%;height:100px;background:#1a1c26;border:1px solid #2a2d3e;color:#b0b5c8;font-size:12px;font-family:Segoe UI,Arial,sans-serif;border-radius:6px;padding:8px 10px;resize:none;outline:none;line-height:1.5;" placeholder="Paste your cover letter here -- scorer checks if your pitch aligns with what the role actually needs..."></textarea>
+      </div>
     </div>
   </div>
   <div class="panel">
@@ -127,7 +129,9 @@ async function score(){
   btn.disabled=true;btn.textContent='Scoring...';
   document.getElementById('output').innerHTML='<div class="loading"><div>Analyzing against your profile...</div><div class="dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div></div>';
   try{
-    const res=await fetch('/score',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({jd})});
+    const coverVal = document.getElementById('cover-input')?.value?.trim() || '';
+    const resumeVal = document.getElementById('resume-input')?.value?.trim() || '';
+    const res=await fetch('/score',{method:'POST',headers:{'Content-Type':'application/json'},body: JSON.stringify({ jd, resume: resumeVal, cover: coverVal })});
     const r=await res.json();
     if(r.error){throw new Error(r.error)}
     render(r);addHist(r);
@@ -173,6 +177,8 @@ function addHist(r){
 }
 function clearJob(){
   document.getElementById('jd').value='';
+  const c = document.getElementById('cover-input'); if(c) c.value='';
+  const r = document.getElementById('resume-input'); if(r) r.value='';
   document.getElementById('output').innerHTML='<div class="placeholder"><div class="placeholder-icon">🎯</div><div style="font-size:13px;color:#444">Paste a job and click Score</div></div>'
 }
 </script>
@@ -180,88 +186,98 @@ function clearJob(){
 </html>`;
 
 if (!API_KEY) {
-  console.log("\n  ⚠️  No API key found.");
-  console.log("  Set it first:");
-  console.log("    Mac/Linux:  export ANTHROPIC_API_KEY=sk-ant-...");
-  console.log("    Windows:    set ANTHROPIC_API_KEY=sk-ant-...\n");
+  console.log('\n  ⚠️  No API key found.');
+  console.log('  Set it first:');
+  console.log('    Mac/Linux:  export ANTHROPIC_API_KEY=sk-ant-...');
+  console.log('    Windows:    set ANTHROPIC_API_KEY=sk-ant-...\n');
 }
 
 const server = http.createServer((req, res) => {
-  if (req.method === "GET" && req.url === "/") {
-    res.writeHead(200, { "Content-Type": "text/html" });
-    res.end(
-      HTML.replace(
-        "${API_KEY ? '✅ API key loaded' : '⚠️ No API key — set ANTHROPIC_API_KEY'}",
-        API_KEY ? "✅ API key loaded" : "⚠️ No API key — set ANTHROPIC_API_KEY",
-      ).replace(
-        "'key-ok' : 'key-missing'}",
-        `'${API_KEY ? "key-ok" : "key-missing"}'`,
-      ),
-    );
+
+  if (req.method === 'GET' && req.url === '/') {
+    res.writeHead(200, { 'Content-Type': 'text/html' });
+    res.end(HTML.replace('${API_KEY ? \'✅ API key loaded\' : \'⚠️ No API key — set ANTHROPIC_API_KEY\'}', API_KEY ? '✅ API key loaded' : '⚠️ No API key — set ANTHROPIC_API_KEY').replace("'key-ok' : 'key-missing'}", `'${API_KEY ? 'key-ok' : 'key-missing'}'`));
     return;
   }
 
-  if (req.method === "POST" && req.url === "/score") {
+  if (req.method === 'POST' && req.url === '/score') {
     if (!API_KEY) {
-      res.writeHead(200, { "Content-Type": "application/json" });
-      res.end(
-        JSON.stringify({
-          error: "No ANTHROPIC_API_KEY set. See terminal for instructions.",
-        }),
-      );
+      res.writeHead(200, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ error: 'No ANTHROPIC_API_KEY set. See terminal for instructions.' }));
       return;
     }
 
-    let body = "";
-    req.on("data", (d) => (body += d));
-    req.on("end", () => {
-      const { jd } = JSON.parse(body);
+    let body = '';
+    req.on('data', d => body += d);
+    req.on('end', () => {
+      const { jd, resume, cover } = JSON.parse(body);
 
-      const prompt = `Candidate profile:\n${PROFILE}\n\nJob description:\n${jd}\n\nRespond ONLY with a JSON object, no markdown, no extra text:\n{"score":1-10,"title":"job title max 40 chars","company":"company name max 30 chars","salary":"listed salary range or Not listed","remote":"Remote or Hybrid or On-site or Not specified","verdict":"APPLY NOW or STRONG FIT or GOOD FIT or BORDERLINE or SKIP","priority":"HIGH or MEDIUM or LOW or SKIP","strengths":["strength 1","strength 2","strength 3"],"gaps":["gap 1","gap 2","gap 3"],"dealbreakers":[],"summary":"2-3 sentences honest assessment"}\n\nScoring: 9-10=near perfect, 8=strong minor gaps only, 7=good 1-2 gaps, 6=backup, 5=borderline, 1-4=skip. Flag any salary or on-site requirement that violates the SALARY dealbreakers in the candidate profile.`;
+      const prompt = `You are a career advisor scoring job fit for a candidate.
+
+${resume ? `CANDIDATE RESUME:\n${resume}` : 'No resume provided -- score based on job description alone.'}
+
+${cover ? `CANDIDATE COVER LETTER:\n${cover}` : 'No cover letter provided.'}
+
+JOB DESCRIPTION:\n${jd}
+
+Analyze fit between this candidate and this job. If no resume is provided,
+give a general analysis of the role difficulty and requirements. If resume
+is provided, score specifically against the candidate's actual background.
+
+Respond ONLY with a JSON object, no markdown, no extra text:
+{"score":1-10,"title":"job title max 40 chars","company":"company name max 30 chars",
+"salary":"listed salary range or Not listed",
+"remote":"Remote or Hybrid or On-site or Not specified",
+"verdict":"APPLY NOW or STRONG FIT or GOOD FIT or BORDERLINE or SKIP",
+"priority":"HIGH or MEDIUM or LOW or SKIP",
+"strengths":["strength 1","strength 2","strength 3"],
+"gaps":["gap 1","gap 2","gap 3"],
+"dealbreakers":[],
+"summary":"2-3 sentence honest assessment based on the candidate materials provided"}
+
+Scoring: 9-10 near perfect, 8 strong minor gaps, 7 good 1-2 gaps,
+6 backup, 5 borderline, 1-4 skip. Flag 5-day on-site as a dealbreaker
+if candidate resume or cover letter signals remote preference.`;
 
       const payload = JSON.stringify({
-        model: "claude-sonnet-4-6",
+        model: 'claude-sonnet-4-6',
         max_tokens: 1000,
-        messages: [{ role: "user", content: prompt }],
+        messages: [{ role: 'user', content: prompt }]
       });
 
       const options = {
-        hostname: "api.anthropic.com",
-        path: "/v1/messages",
-        method: "POST",
+        hostname: 'api.anthropic.com',
+        path: '/v1/messages',
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
-          "x-api-key": API_KEY,
-          "anthropic-version": "2023-06-01",
-          "Content-Length": Buffer.byteLength(payload),
-        },
+          'Content-Type': 'application/json',
+          'x-api-key': API_KEY,
+          'anthropic-version': '2023-06-01',
+          'Content-Length': Buffer.byteLength(payload)
+        }
       };
 
-      const apiReq = https.request(options, (apiRes) => {
-        let data = "";
-        apiRes.on("data", (d) => (data += d));
-        apiRes.on("end", () => {
+      const apiReq = https.request(options, apiRes => {
+        let data = '';
+        apiRes.on('data', d => data += d);
+        apiRes.on('end', () => {
           try {
             const parsed = JSON.parse(data);
-            const text = parsed.content?.[0]?.text || "";
-            const clean = text.replace(/```json|```/g, "").trim();
+            const text = parsed.content?.[0]?.text || '';
+            const clean = text.replace(/```json|```/g, '').trim();
             const result = JSON.parse(clean);
-            res.writeHead(200, { "Content-Type": "application/json" });
+            res.writeHead(200, { 'Content-Type': 'application/json' });
             res.end(JSON.stringify(result));
           } catch (e) {
-            res.writeHead(200, { "Content-Type": "application/json" });
-            res.end(
-              JSON.stringify({
-                error: "Failed to parse API response: " + e.message,
-              }),
-            );
+            res.writeHead(200, { 'Content-Type': 'application/json' });
+            res.end(JSON.stringify({ error: 'Failed to parse API response: ' + e.message }));
           }
         });
       });
 
-      apiReq.on("error", (e) => {
-        res.writeHead(200, { "Content-Type": "application/json" });
-        res.end(JSON.stringify({ error: "API request failed: " + e.message }));
+      apiReq.on('error', e => {
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ error: 'API request failed: ' + e.message }));
       });
 
       apiReq.write(payload);
@@ -271,22 +287,22 @@ const server = http.createServer((req, res) => {
   }
 
   res.writeHead(404);
-  res.end("Not found");
+  res.end('Not found');
 });
 
 server.listen(PORT, () => {
-  console.log("");
-  console.log("  ✅ Job Scorer is running!");
-  console.log("");
+  console.log('');
+  console.log('  ✅ Job Scorer is running!');
+  console.log('');
   console.log(`  👉 Open: http://localhost:${PORT}`);
-  console.log("");
+  console.log('');
   if (API_KEY) {
-    console.log("  API key: loaded ✅");
+    console.log('  API key: loaded ✅');
   } else {
-    console.log("  API key: MISSING ⚠️");
-    console.log("  Set it with: export ANTHROPIC_API_KEY=sk-ant-...");
+    console.log('  API key: MISSING ⚠️');
+    console.log('  Set it with: export ANTHROPIC_API_KEY=sk-ant-...');
   }
-  console.log("");
-  console.log("  Keep this window open. Ctrl+C to stop.");
-  console.log("");
+  console.log('');
+  console.log('  Keep this window open. Ctrl+C to stop.');
+  console.log('');
 });

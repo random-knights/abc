@@ -32,3 +32,9 @@ Ecosystem docs (architecture, ADRs, runbooks, conventions) live in
 **[xyz-docs](https://github.com/random-knights/xyz-docs)** (start at
 `INDEX.md`). Public-facing docs:
 [READMORE](https://github.com/random-knights/.github/blob/main/READMORE).
+
+## Operating this repo
+
+- [RUNBOOK.md](RUNBOOK.md) - humans: how this repo works, what breaks and how to
+  fix it. No build, no toolchain, no secrets.
+- [CODEX.md](CODEX.md) - agents: the rules that apply in this repo.

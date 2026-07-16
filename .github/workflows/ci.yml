@@ -1,4 +1,4 @@
-name: Classroom Validation
+name: CI
 
 on:
   workflow_dispatch:
@@ -6,7 +6,7 @@ on:
     branches:
       - main
     paths:
-      - .github/workflows/classroom-validation.yml
+      - .github/workflows/ci.yml
       - README.md
       - .gitignore
       - lessons/**
@@ -18,7 +18,7 @@ on:
       - chore/**
       - feature/**
     paths:
-      - .github/workflows/classroom-validation.yml
+      - .github/workflows/ci.yml
       - README.md
       - .gitignore
       - lessons/**
@@ -29,7 +29,7 @@ permissions:
   contents: read
 
 concurrency:
-  group: classroom-validation-${{ github.ref }}
+  group: ci-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:

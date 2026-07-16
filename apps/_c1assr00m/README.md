@@ -49,7 +49,7 @@ Featuring:
 - 🚀 Pathway into advanced Rand0m projects
 
 <p align="center">
-  <img src="https://github.com/random-knights/.github/blob/main/assets/_c1assr00m/ruok-ce.gif" alt="Rand0m: C1assr00m" title="Random Knights, XYZ">
+  <img src="https://github.com/random-knights/.github/blob/main/assets/_c1assr00m/ce-drk.gif" alt="Rand0m: C1assr00m" title="Random Knights, XYZ">
 </p>
 
 ## <span style="color:#D8D8D8"><u> **POINTS OF CONTACT** </u></span>

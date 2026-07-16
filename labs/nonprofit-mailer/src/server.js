@@ -6,8 +6,23 @@
 
 import http from 'http';
 import { generateSubjectLines, scoreSubjectLines, generateEmailBody, generateABTestPlan, evalEmail } from './ai.js';
+import { createFileAdapter } from './datalake.js';
+import { buildIndex } from './rag.js';
+import { analyzeCustomer, campaignBriefFrom } from './engine.js';
 
 const PORT = 4000;
+
+// ── Datalake + RAG index (built once at boot; adapter seam = DATALAKE_DIR) ──
+const datalake = createFileAdapter();
+const ragIndex = buildIndex(datalake.allCustomers());
+
+// Org defaults applied when the retention engine drafts a campaign brief.
+const ORG_DEFAULTS = {
+  orgName: 'Habitat for Humanity',
+  mission: 'Building affordable homes and empowering communities through homeownership',
+  tone: 'Warm, hopeful, community-driven — not guilt-inducing',
+  cta: 'Stay With Us — See Your Impact',
+};
 
 const HTML = `<!DOCTYPE html>
 <html lang="en">
@@ -65,7 +80,23 @@ textarea{resize:vertical;min-height:60px}
   <div><h1>NONPROFIT MAILER</h1><p>AI-powered email campaign generator &nbsp;·&nbsp; By Random Knights</p></div>
   <span class="badge">Powered by Claude</span>
 </div>
-<div class="main">
+<div class="main" style="grid-template-columns:380px 1fr">
+  <div class="panel" style="grid-column:1/-1">
+    <div class="ph" style="color:#a78bfa">Retention Engine - RAG over the datalake</div>
+    <div class="form-body" style="flex-direction:row;flex-wrap:wrap;align-items:flex-end;gap:12px">
+      <div style="flex:1;min-width:240px"><label>Constituent (from the datalake)</label>
+        <select id="cust-select"><option value="">Loading datalake...</option></select>
+      </div>
+      <button class="btn" id="analyze-btn" style="width:auto;padding:11px 22px;margin:0" onclick="analyzeConstituent()">Analyze + Recommend</button>
+      <button class="btn" id="retain-btn" style="width:auto;padding:11px 22px;margin:0;opacity:0.4" disabled onclick="runRetentionCampaign()">Generate Retention Email</button>
+    </div>
+    <div id="engine-output" style="padding:0 16px 14px;display:none">
+      <div id="engine-decision" style="font-size:12px;line-height:1.7;color:#b0b5c8"></div>
+      <details style="margin-top:8px"><summary style="font-size:11px;color:#a78bfa;cursor:pointer">Retrieved context (what the LLM actually saw)</summary>
+        <div id="engine-retrieved" style="font-size:11px;color:#888;line-height:1.6;margin-top:6px"></div>
+      </details>
+    </div>
+  </div>
   <div class="panel">
     <div class="ph">Campaign Setup</div>
     <div class="form-body">
@@ -96,6 +127,71 @@ textarea{resize:vertical;min-height:60px}
 </div>
 
 <script>
+// Retention state: set by analyzeConstituent, consumed by runPipeline so the
+// 5-step pipeline writes a personalized retention follow-up, not a blast.
+window.__retention = null;
+
+async function loadConstituents() {
+  try {
+    const res = await fetch('/api/customers');
+    const roster = await res.json();
+    const sel = document.getElementById('cust-select');
+    sel.innerHTML = '<option value="">Pick a constituent...</option>' +
+      roster.map(function(c){ return '<option value="'+c.id+'">'+c.display_name+' ('+c.membership_tier+')</option>'; }).join('');
+  } catch (e) {
+    document.getElementById('cust-select').innerHTML = '<option value="">Datalake unavailable: '+e.message+'</option>';
+  }
+}
+loadConstituents();
+
+async function analyzeConstituent() {
+  const id = document.getElementById('cust-select').value;
+  if (!id) { alert('Pick a constituent first.'); return; }
+  const btn = document.getElementById('analyze-btn');
+  btn.disabled = true; btn.textContent = 'Analyzing...';
+  const out = document.getElementById('engine-output');
+  out.style.display = 'block';
+  document.getElementById('engine-decision').innerHTML = 'Retrieving records and asking the strategist model...';
+  try {
+    const res = await fetch('/api/analyze', {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({customerId:id})});
+    const data = await res.json();
+    if (!res.ok || data.error) throw new Error(data.error || ('HTTP '+res.status));
+    const d = data.decision;
+    const riskColor = d.lapse_risk==='high' ? '#f87171' : d.lapse_risk==='medium' ? '#f59e0b' : '#50c878';
+    document.getElementById('engine-decision').innerHTML =
+      '<strong style="color:#c8cde0">Segment:</strong> '+d.segment+
+      ' &nbsp;·&nbsp; <strong style="color:#c8cde0">Lapse risk:</strong> <strong style="color:'+riskColor+'">'+d.lapse_risk.toUpperCase()+'</strong>'+
+      ' &nbsp;·&nbsp; <strong style="color:#c8cde0">Channel:</strong> '+d.channel+
+      ' &nbsp;·&nbsp; <strong style="color:#c8cde0">Timing:</strong> '+d.timing+'<br>'+
+      '<strong style="color:#c8cde0">Approach:</strong> '+d.recommended_approach+'<br>'+
+      '<strong style="color:#c8cde0">Risk factors:</strong> '+d.risk_factors.join('; ')+'<br>'+
+      '<strong style="color:#c8cde0">Avoid:</strong> '+(d.do_not||[]).join('; ')+'<br>'+
+      '<span style="color:#888">'+d.reasoning+'</span>';
+    document.getElementById('engine-retrieved').innerHTML =
+      '<div style="color:#a78bfa;margin-top:4px">Own records:</div>'+
+      data.retrieved.own.map(function(r){ return '<div>['+r.type+'] '+r.text+'</div>'; }).join('')+
+      '<div style="color:#a78bfa;margin-top:4px">Comparable constituents:</div>'+
+      data.retrieved.similar.map(function(r){ return '<div>[sim '+r.similarity+'] ['+r.type+'] '+r.text+'</div>'; }).join('');
+    // Pre-fill the campaign form from the engine's brief + arm the button.
+    const b = data.brief;
+    document.getElementById('orgName').value = b.orgName;
+    document.getElementById('mission').value = b.mission;
+    document.getElementById('audience').value = b.audience;
+    document.getElementById('goal').value = b.goal;
+    document.getElementById('keyMessage').value = b.keyMessage;
+    document.getElementById('cta').value = b.cta;
+    document.getElementById('audienceSize').value = b.audienceSize;
+    window.__retention = b.retentionContext;
+    const rbtn = document.getElementById('retain-btn');
+    rbtn.disabled = false; rbtn.style.opacity = '1';
+  } catch (e) {
+    document.getElementById('engine-decision').innerHTML = '<span style="color:#f87171">Analysis failed: '+e.message+'</span>';
+  }
+  btn.disabled = false; btn.textContent = 'Analyze + Recommend';
+}
+
+function runRetentionCampaign() { runPipeline(); }
+
 async function runPipeline() {
   const btn = document.getElementById('run-btn');
   btn.disabled = true; btn.textContent = 'Running pipeline...';
@@ -107,7 +203,10 @@ async function runPipeline() {
     tone: document.getElementById('tone').value,
     keyMessage: document.getElementById('keyMessage').value,
     cta: document.getElementById('cta').value,
-    audienceSize: document.getElementById('audienceSize').value
+    audienceSize: document.getElementById('audienceSize').value,
+    // Set by the retention engine; makes every pipeline stage personalize
+    // to the retrieved datalake context (see retentionBlock in ai.js).
+    retentionContext: window.__retention || undefined
   };
   const out = document.getElementById('output');
   out.innerHTML = '';
@@ -168,10 +267,14 @@ async function runPipeline() {
     addStep(4, 'Step 4 of 5 — Building A/B test plan');
     const winIdx = subjects.subjects.findIndex(s => s.text === scoring.winner);
     const test = await callApi('/api/abtest', {campaign,subjects:subjects.subjects,winnerIndex:winIdx>=0?winIdx:0});
+    // Defensive render: for a retention segment-of-one the model sometimes
+    // reshapes the plan (e.g. omits success_criteria) - never .map/deref an
+    // optional field unguarded.
+    const crit = test.success_criteria || {};
     doneStep(4, '<div style="font-size:12px;line-height:1.7;color:#b0b5c8">'+
-      '<strong style="color:#c8cde0">Hypothesis:</strong> '+test.hypothesis+'<br>'+
-      '<strong style="color:#c8cde0">Duration:</strong> '+test.test_duration+' &nbsp;·&nbsp; <strong style="color:#c8cde0">Split:</strong> '+test.sample_split+'<br>'+
-      '<strong style="color:#c8cde0">Success criteria:</strong> '+test.success_criteria.open_rate_target+' open rate, '+test.success_criteria.click_rate_target+' CTR'+
+      '<strong style="color:#c8cde0">Hypothesis:</strong> '+(test.hypothesis||'n/a')+'<br>'+
+      '<strong style="color:#c8cde0">Duration:</strong> '+(test.test_duration||'n/a')+' &nbsp;·&nbsp; <strong style="color:#c8cde0">Split:</strong> '+(test.sample_split||'n/a')+'<br>'+
+      '<strong style="color:#c8cde0">Success criteria:</strong> '+(crit.open_rate_target||'n/a')+' open rate, '+(crit.click_rate_target||'n/a')+' CTR'+
       '</div>');
 
     // Step 5
@@ -208,6 +311,13 @@ const server = http.createServer(async (req, res) => {
     return;
   }
 
+  // Datalake roster (adapter-backed; no PII beyond synthetic display names).
+  if (req.method === 'GET' && req.url === '/api/customers') {
+    setJSON();
+    res.end(JSON.stringify(datalake.listCustomers()));
+    return;
+  }
+
   if (req.method === 'POST') {
     let body = '';
     req.on('data', d => body += d);
@@ -215,6 +325,20 @@ const server = http.createServer(async (req, res) => {
     const data = JSON.parse(body);
 
     try {
+      // Retention engine: RAG-retrieve the constituent's context, get the
+      // structured marketing decision, and draft the campaign brief the
+      // 5-step pipeline consumes.
+      if (req.url === '/api/analyze') {
+        const bundle = datalake.getCustomer(String(data.customerId || ''));
+        if (!bundle) {
+          res.writeHead(404, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ error: 'Unknown constituent id.' })); return;
+        }
+        const { decision, retrieved } = await analyzeCustomer(ragIndex, bundle.profile.customer_id);
+        const brief = campaignBriefFrom(decision, bundle.profile, ORG_DEFAULTS);
+        setJSON();
+        res.end(JSON.stringify({ decision, retrieved, brief })); return;
+      }
       if (req.url === '/api/subjects') {
         const result = await generateSubjectLines(data, 5);
         setJSON(); res.end(JSON.stringify(result)); return;

@@ -7,7 +7,7 @@ const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
  * max_tokens ceiling produces invalid JSON ("Unterminated string...") - name
  * that cause instead of leaking a bare parse error to the UI.
  */
-function parseModelJson(res, step) {
+export function parseModelJson(res, step) {
   const raw = (res.content?.[0]?.text ?? '').replace(/```json|```/g, '').trim();
   try {
     return JSON.parse(raw);
@@ -17,6 +17,26 @@ function parseModelJson(res, step) {
     }
     throw new Error(`${step}: model did not return valid JSON (${e.message}).`);
   }
+}
+
+/**
+ * Optional retention grounding: when the campaign brief came from the
+ * retention engine (RAG-over-datalake), thread the retrieved segment
+ * context into the writing prompts so the output is personalized to the
+ * constituent's actual records, not a generic blast.
+ */
+function retentionBlock(campaign) {
+  const r = campaign.retentionContext;
+  if (!r) return '';
+  return `
+RETENTION CONTEXT (from the constituent's datalake records - personalize to this):
+- Segment: ${r.segment}
+- Lapse risk: ${r.lapse_risk}
+- Risk factors: ${(r.risk_factors || []).join('; ')}
+- Timing: ${r.timing}
+- DO NOT: ${(r.do_not || []).join('; ')}
+This is a RETENTION follow-up to one segment/person - keep them engaged; never guilt or pressure.
+`;
 }
 
 /**
@@ -31,7 +51,7 @@ AUDIENCE: ${campaign.audience}
 CAMPAIGN GOAL: ${campaign.goal}
 TONE: ${campaign.tone}
 KEY MESSAGE: ${campaign.keyMessage}
-
+${retentionBlock(campaign)}
 Generate exactly ${count} subject lines. Each should use a different psychological hook:
 1. Urgency / scarcity
 2. Curiosity / intrigue
@@ -113,7 +133,7 @@ TONE: ${campaign.tone}
 KEY MESSAGE: ${campaign.keyMessage}
 SUBJECT LINE: ${winningSubject}
 CTA: ${campaign.cta}
-
+${retentionBlock(campaign)}
 Write a complete email with:
 - Personalized greeting
 - Hook opening (2-3 sentences max)

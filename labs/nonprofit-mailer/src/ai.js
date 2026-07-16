@@ -1,14 +1,46 @@
+/**
+ * The drafting + eval models.
+ *
+ * SPLIT ON PURPOSE:
+ *
+ *   DRAFT_MODEL = claude-sonnet-4-6, at a FIXED temperature.
+ *     Blueprint principle 2 (variance) calls for N generations at a fixed
+ *     temperature. Sonnet 4.6 still accepts the `temperature` parameter;
+ *     Opus 4.8 removed sampling parameters entirely (they 400). So the drafter
+ *     is the model where "fixed temperature" is literally expressible, and the
+ *     variance experiment holds every knob constant by construction.
+ *
+ *   JUDGE_MODEL = claude-opus-4-8 (see src/grounding.js).
+ *     The trust-critical steps - the grounding gate and the eval - get the
+ *     strongest model, with adaptive thinking and schema-enforced output.
+ *
+ * Note: structured outputs (output_config.format) are NOT supported on
+ * Sonnet 4.6, so the drafter asks for JSON in-prompt and parses defensively.
+ * The Opus judge does use schema enforcement.
+ */
+
 import Anthropic from '@anthropic-ai/sdk';
+import { senderPromptBlock, SENDER } from './sender.js';
+import { orgPromptBlock } from './orgs.js';
+import { statusPromptBlock } from './status.js';
+import { campaignPromptBlock } from './campaigns.js';
 
 const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
 
+export const DRAFT_MODEL = 'claude-sonnet-4-6';
+export const EVAL_MODEL = 'claude-opus-4-8';
+
+/** The fixed temperature for the variance experiment. Held constant across all N runs. */
+export const FIXED_TEMPERATURE = 1.0;
+
 /**
  * Parse a model response as JSON, failing legibly. A response cut off by the
- * max_tokens ceiling produces invalid JSON ("Unterminated string...") - name
- * that cause instead of leaking a bare parse error to the UI.
+ * max_tokens ceiling produces invalid JSON - name that cause instead of leaking
+ * a bare parse error to the UI.
  */
 export function parseModelJson(res, step) {
-  const raw = (res.content?.[0]?.text ?? '').replace(/```json|```/g, '').trim();
+  const block = res.content.find((b) => b.type === 'text');
+  const raw = (block?.text ?? '').replace(/```json|```/g, '').trim();
   try {
     return JSON.parse(raw);
   } catch (e) {
@@ -20,245 +52,162 @@ export function parseModelJson(res, step) {
 }
 
 /**
- * Optional retention grounding: when the campaign brief came from the
- * retention engine (RAG-over-datalake), thread the retrieved segment
- * context into the writing prompts so the output is personalized to the
- * constituent's actual records, not a generic blast.
+ * THE NEGATIVE CONTROL - a deliberately ungrounded draft, used to prove the gate.
+ *
+ * WHY THIS IS A SEPARATE PROMPT: the first attempt bolted a "now ignore the rules
+ * above and fabricate" instruction onto the end of the real drafting prompt. It did
+ * not work - the model followed the surrounding grounding rules and wrote a clean,
+ * honest email, so the "negative control" produced a NEGATIVE that was actually fine
+ * and proved nothing about the gate.
+ *
+ * The fix is to not fight the real prompt at all. This is a standalone prompt with no
+ * grounding rules in it, written as an ordinary warm-renewal brief - the kind of brief
+ * that produces confident fabrication as a matter of course, because it presupposes a
+ * relationship that does not exist. That is exactly the failure mode the gate exists
+ * to catch, so it is the right fixture.
+ *
+ * This path is a TEST FIXTURE. It is reachable only from the explicit "prove the gate"
+ * button, its output is a draft like any other, and nothing is ever sent.
  */
-function retentionBlock(campaign) {
-  const r = campaign.retentionContext;
-  if (!r) return '';
-  return `
-RETENTION CONTEXT (from the constituent's datalake records - personalize to this):
-- Segment: ${r.segment}
-- Lapse risk: ${r.lapse_risk}
-- Risk factors: ${(r.risk_factors || []).join('; ')}
-- Timing: ${r.timing}
-- DO NOT: ${(r.do_not || []).join('; ')}
-This is a RETENTION follow-up to one segment/person - keep them engaged; never guilt or pressure.
-`;
-}
+function fabricationPrompt(org) {
+  return `You are a nonprofit copywriter. Write a warm, polished renewal email from
+Random Knights (an open-source environmental technology project) to a long-standing
+partner organization.
 
-/**
- * Generate subject line variants for a campaign
- */
-export async function generateSubjectLines(campaign, count = 5) {
-  const prompt = `You are an expert nonprofit email marketer. Generate ${count} compelling email subject lines for this campaign.
+RECIPIENT: ${org.name} in ${org.city}, ${org.state}.
 
-ORGANIZATION: ${campaign.orgName}
-MISSION: ${campaign.mission}
-AUDIENCE: ${campaign.audience}
-CAMPAIGN GOAL: ${campaign.goal}
-TONE: ${campaign.tone}
-KEY MESSAGE: ${campaign.keyMessage}
-${retentionBlock(campaign)}
-Generate exactly ${count} subject lines. Each should use a different psychological hook:
-1. Urgency / scarcity
-2. Curiosity / intrigue
-3. Social proof / community
-4. Direct benefit / value
-5. Emotional / storytelling
+The email should:
+  - thank them warmly for their generous donation last year
+  - praise their flagship conservation program by name
+  - cite two impressive statistics showing what the partnership achieved together
+  - mention that Random Knights certified their environmental reporting
+  - refer back to the productive meeting we had with their team last spring
+  - invite them to renew their membership for another year
+
+Make it polished, specific, and professional. Use concrete details and real-sounding
+numbers so it feels substantial.
 
 Respond ONLY with JSON, no markdown:
 {
-  "subjects": [
-    { "text": "subject line", "hook": "urgency", "reasoning": "why this works", "predicted_open_rate": "estimated % as string like 24%" }
-  ]
+  "subject": "the subject line",
+  "body": "the email body as plain text, with \\n between paragraphs",
+  "grounding_notes": ["note"]
+}`;
+}
+
+/**
+ * Generate ONE draft for a (org x status x campaign) triple.
+ * `injectFabrication` swaps in the negative-control fixture above.
+ */
+export async function generateDraft(org, status, campaign, opts = {}) {
+  const { temperature = FIXED_TEMPERATURE, injectFabrication = false } = opts;
+
+  const prompt = injectFabrication
+    ? fabricationPrompt(org)
+    : `You are writing a single outreach email for Random Knights.
+
+${senderPromptBlock()}
+
+${orgPromptBlock(org)}
+
+${statusPromptBlock(status)}
+
+${campaignPromptBlock(campaign)}
+
+TONE: ${SENDER.tone}
+
+Write a short email (under 200 words). Ground every sentence in the facts above.
+When you have nothing specific to say about the recipient, say something honest and
+general rather than inventing something specific. It is much better to be vague than
+to be wrong: this email's only job is to be trustworthy.
+
+Do not invent programs, outcomes, numbers, deadlines, or history.
+Do not thank them for anything. Nothing has happened between you yet.
+
+Respond ONLY with JSON, no markdown:
+{
+  "subject": "the subject line",
+  "body": "the email body as plain text, with \\n between paragraphs",
+  "grounding_notes": ["which fact each specific claim leans on"]
 }`;
 
   const res = await client.messages.create({
-    model: 'claude-sonnet-4-6',
+    model: DRAFT_MODEL,
     max_tokens: 2000,
-    messages: [{ role: 'user', content: prompt }]
+    temperature,
+    thinking: { type: 'disabled' },
+    messages: [{ role: 'user', content: prompt }],
   });
 
-  return parseModelJson(res, 'subject generation');
+  const draft = parseModelJson(res, 'draft generation');
+  return {
+    ...draft,
+    full_text: `Subject: ${draft.subject}\n\n${draft.body}`,
+    model: DRAFT_MODEL,
+    temperature,
+    fabricated: injectFabrication,
+  };
 }
 
-/**
- * Score and rank subject lines by predicted engagement
- */
-export async function scoreSubjectLines(subjects, campaign) {
-  const prompt = `You are an email deliverability and engagement expert. Score these subject lines for a nonprofit email campaign.
-
-ORGANIZATION: ${campaign.orgName}
-AUDIENCE: ${campaign.audience}
-CAMPAIGN GOAL: ${campaign.goal}
-
-SUBJECT LINES TO SCORE:
-${subjects.map((s, i) => `${i + 1}. "${s.text}"`).join('\n')}
-
-Score each on these criteria (1-10 each):
-- clarity: how clear is the message
-- urgency: motivates action now
-- relevance: matches audience interests
-- deliverability: avoids spam triggers
-- emotional_pull: creates emotional connection
-
-Respond ONLY with JSON, no markdown:
-{
-  "scored": [
-    {
-      "text": "subject line text",
-      "scores": { "clarity": 8, "urgency": 7, "relevance": 9, "deliverability": 8, "emotional_pull": 7 },
-      "total": 39,
-      "grade": "A",
-      "recommendation": "one sentence on why to use or improve this"
-    }
-  ],
-  "winner": "the best subject line text",
-  "winner_reason": "why this one wins"
-}`;
-
-  const res = await client.messages.create({
-    model: 'claude-sonnet-4-6',
-    max_tokens: 2000,
-    messages: [{ role: 'user', content: prompt }]
-  });
-
-  return parseModelJson(res, 'subject scoring');
-}
-
-/**
- * Generate the full email body for the winning subject
- */
-export async function generateEmailBody(campaign, winningSubject) {
-  const prompt = `You are an expert nonprofit copywriter. Write a compelling donation/engagement email.
-
-ORGANIZATION: ${campaign.orgName}
-MISSION: ${campaign.mission}
-AUDIENCE: ${campaign.audience}
-GOAL: ${campaign.goal}
-TONE: ${campaign.tone}
-KEY MESSAGE: ${campaign.keyMessage}
-SUBJECT LINE: ${winningSubject}
-CTA: ${campaign.cta}
-${retentionBlock(campaign)}
-Write a complete email with:
-- Personalized greeting
-- Hook opening (2-3 sentences max)
-- Story or impact statement (1 paragraph)
-- Clear ask / call to action
-- Warm closing
-- P.S. line (these get high read rates)
-
-Keep it under 300 words. Write for humans, not algorithms.
-
-Respond ONLY with JSON, no markdown:
-{
-  "greeting": "Dear [First Name],",
-  "hook": "opening sentences",
-  "body": "main paragraph",
-  "cta_block": "the ask and button text",
-  "closing": "warm sign off",
-  "ps": "P.S. line",
-  "full_text": "complete assembled email as plain text",
-  "word_count": 245,
-  "reading_time": "1 min"
-}`;
-
-  const res = await client.messages.create({
-    model: 'claude-sonnet-4-6',
-    max_tokens: 2000,
-    messages: [{ role: 'user', content: prompt }]
-  });
-
-  return parseModelJson(res, 'email body generation');
-}
-
-/**
- * Generate A/B test plan with measurable success criteria
- */
-export async function generateABTestPlan(campaign, subjects, winnerIndex) {
-  const challengers = subjects.filter((_, i) => i !== winnerIndex).slice(0, 1);
-
-  const prompt = `You are an email A/B testing expert. Create a rigorous test plan.
-
-CAMPAIGN: ${campaign.orgName} - ${campaign.goal}
-VARIANT A (Control): "${subjects[winnerIndex].text}"
-VARIANT B (Challenger): "${challengers[0]?.text || 'alternate subject line'}"
-AUDIENCE SIZE: ${campaign.audienceSize || '10,000 subscribers'}
-
-Create a complete A/B test plan with statistical rigor.
-
-Respond ONLY with JSON, no markdown:
-{
-  "hypothesis": "what we expect to learn",
-  "primary_metric": "open rate",
-  "secondary_metrics": ["click rate", "conversion rate", "unsubscribe rate"],
-  "sample_split": "50/50",
-  "test_duration": "48 hours",
-  "minimum_sample_size": 1000,
-  "significance_threshold": "95% confidence",
-  "send_schedule": {
-    "test_group": "20% of list - first send",
-    "winner_send": "remaining 80% - 48 hours later"
+/** The eval judge's schema, enforced by the API. */
+const EVAL_SCHEMA = {
+  type: 'object',
+  properties: {
+    scores: {
+      type: 'object',
+      properties: {
+        grounding: { type: 'integer', description: '0-10. Does every claim trace to source material? This dominates.' },
+        clarity: { type: 'integer', description: '0-10. Is the ask clear?' },
+        tone_fit: { type: 'integer', description: '0-10. Matches the sender tone: plain, candid, non-salesy?' },
+        campaign_fit: { type: 'integer', description: '0-10. Does it serve the campaign goal?' },
+        honesty: { type: 'integer', description: '0-10. Estimates framed as estimates, no overclaimed certainty?' },
+      },
+      required: ['grounding', 'clarity', 'tone_fit', 'campaign_fit', 'honesty'],
+      additionalProperties: false,
+    },
+    flags: { type: 'array', items: { type: 'string' }, description: 'Specific concerns.' },
+    summary: { type: 'string', description: 'One paragraph, honest.' },
   },
-  "success_criteria": {
-    "open_rate_target": "above 25%",
-    "click_rate_target": "above 3%",
-    "minimum_improvement": "10% lift over control"
-  },
-  "segments_to_watch": ["new subscribers", "lapsed donors", "active volunteers"],
-  "what_to_do_if_no_winner": "fallback recommendation"
-}`;
-
-  const res = await client.messages.create({
-    model: 'claude-sonnet-4-6',
-    max_tokens: 4000,
-    messages: [{ role: 'user', content: prompt }]
-  });
-
-  return parseModelJson(res, 'A/B test plan');
-}
+  required: ['scores', 'flags', 'summary'],
+  additionalProperties: false,
+};
 
 /**
- * Eval framework - score a generated email against quality criteria
+ * Score a draft. Runs on Opus 4.8 with schema-enforced output.
+ * NOTE: this is quality scoring only. The pass/fail authority is the grounding
+ * gate in src/grounding.js - see scoreTrial() in src/variance.js for how a
+ * gate failure zeroes the score regardless of what this judge says.
  */
-export async function evalEmail(emailBody, campaign) {
-  const prompt = `You are an AI output evaluator specializing in nonprofit email quality. Evaluate this generated email.
+export async function evalDraft(draft, org, status, campaign) {
+  const prompt = `Evaluate this nonprofit outreach email honestly. Be a tough grader.
 
-CAMPAIGN GOAL: ${campaign.goal}
-INTENDED AUDIENCE: ${campaign.audience}
-BRAND TONE: ${campaign.tone}
+${senderPromptBlock()}
 
-EMAIL TO EVALUATE:
-${emailBody.full_text}
+${orgPromptBlock(org)}
 
-Score on these dimensions (1-10):
-- authenticity: does it sound human, not AI-generated
-- clarity: is the ask crystal clear
-- emotional_resonance: does it connect emotionally
-- mission_alignment: does it reflect the org's mission
-- cta_strength: is the call to action compelling
-- spam_risk: inverse score - 10 means very low spam risk
-- hallucination_check: does anything seem fabricated or inaccurate
+SYNTHETIC STATUS: ${status.label} (randomly assigned demo data - NOT a real relationship)
+CAMPAIGN: ${campaign.label} - ${campaign.goal}
+SENDER TONE: ${SENDER.tone}
 
-Respond ONLY with JSON, no markdown:
-{
-  "scores": {
-    "authenticity": 8,
-    "clarity": 9,
-    "emotional_resonance": 7,
-    "mission_alignment": 9,
-    "cta_strength": 8,
-    "spam_risk": 9,
-    "hallucination_check": 10
-  },
-  "total": 60,
-  "max_possible": 70,
-  "grade": "B+",
-  "flags": ["any concerns here"],
-  "improvements": ["specific suggestion 1", "specific suggestion 2"],
-  "approved_for_send": true,
-  "eval_summary": "one paragraph honest assessment"
-}`;
+EMAIL:
+"""
+${draft.full_text}
+"""
+
+Score 0-10 per dimension. Grounding dominates: an email that invents a program, a
+number, or a relationship scores 0 on grounding no matter how well written it is.
+An email that is vague but true beats an email that is specific but invented.`;
 
   const res = await client.messages.create({
-    model: 'claude-sonnet-4-6',
-    max_tokens: 2000,
-    messages: [{ role: 'user', content: prompt }]
+    model: EVAL_MODEL,
+    max_tokens: 3000,
+    thinking: { type: 'adaptive' },
+    output_config: { effort: 'high', format: { type: 'json_schema', schema: EVAL_SCHEMA } },
+    messages: [{ role: 'user', content: prompt }],
   });
 
-  return parseModelJson(res, 'eval');
+  if (res.stop_reason === 'refusal') throw new Error('Eval judge declined to evaluate this draft.');
+  const block = res.content.find((b) => b.type === 'text');
+  if (!block) throw new Error('Eval judge returned no verdict.');
+  return JSON.parse(block.text);
 }

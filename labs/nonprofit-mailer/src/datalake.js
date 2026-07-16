@@ -1,86 +1,112 @@
 /**
- * Datalake adapter layer.
+ * THE ADAPTER SEAM: where a REAL member dataset would plug in.
  *
- * THE SEAM: everything downstream (RAG index, retention engine, email
- * pipeline) consumes the DatalakeAdapter interface below - never files
- * directly. The synthetic demo data and a real warehouse export implement
- * the SAME interface, so pointing the engine at real data is a config
- * change (DATALAKE_DIR), not a code change.
+ * WHAT THIS FILE IS FOR
  *
- * Contract (see data/DATA-DICTIONARY.md for field-level docs):
- *   <dir>/donors.json   structured records  - one object per constituent
- *   <dir>/events.jsonl  event log           - one engagement event per line
- *   <dir>/notes.jsonl   unstructured text   - one free-text document per line
+ * In this public demo, a recipient's lifecycle status is a hash of their org id
+ * (src/status.js) - deliberately fake, and labelled as such everywhere it is
+ * shown. But notice what a status actually IS: it is the one piece of the
+ * (org x status x campaign) triple that a real CRM would OWN. The org data is
+ * public record. The campaign is a choice. The status is the only part that
+ * requires knowing something private about a real relationship.
  *
- * A real datalake plugs in by exporting those three files (CSV-to-JSON /
- * Parquet-to-JSONL is a one-liner in any warehouse), or by implementing
- * another adapter with the same three methods.
+ * So the status lookup is exactly the right seam, and this file is it.
+ *
+ *   MemberSource.statusFor(orgId) -> { id, label, synthetic, ... }
+ *
+ * Everything downstream - the campaign router, the drafting prompts, the
+ * grounding gate - consumes that interface and never asks where the status came
+ * from. Swapping the demo hash for a real member CRM is a config change, not a
+ * code change. That is how you know the seam is real rather than decorative.
+ *
+ * THE REAL IMPLEMENTATION LIVES ELSEWHERE, ON PURPOSE
+ *
+ * The real member dataset belongs to `xyz-outreach`, a private Random Knights
+ * tool. It is not in this repo and must never be: this repo is public and
+ * world-readable, and a real member list is real data about real organizations.
+ * The seam is public; the data is not.
+ *
+ * WHAT A REAL SOURCE MUST GUARANTEE
+ *
+ * If you implement RealMemberSource against a live CRM, the safety properties
+ * this demo relies on stop being free and become YOUR job:
+ *
+ *   1. `synthetic: false` on a real status flips the UI's synthetic labelling
+ *      off. Only set it when the status reflects an actual, recorded
+ *      relationship - because at that point the emails start asserting one.
+ *   2. The grounding gate's red lines (src/grounding.js) forbid claims like
+ *      "your donation" because in THIS demo nothing was ever donated. With a
+ *      real source, those claims may become true - and the gate must then be
+ *      given the supporting facts to check them against, not simply relaxed.
+ *      Loosening the gate without supplying the facts is how you ship a
+ *      confident lie.
+ *   3. Org-level only. This tool has no concept of a person and should not
+ *      acquire one. No individuals, no contacts, no PII.
  */
 
-import { readFileSync, existsSync } from 'fs';
-import { join, dirname } from 'path';
-import { fileURLToPath } from 'url';
-
-const __dirname = dirname(fileURLToPath(import.meta.url));
-
-/** Default: the committed synthetic demo lake (regenerate: npm run generate-data). */
-export const DEFAULT_DATALAKE_DIR = join(__dirname, '..', 'data', 'demo');
-
-function readJsonl(path) {
-  if (!existsSync(path)) return [];
-  return readFileSync(path, 'utf8')
-    .split('\n')
-    .filter((line) => line.trim().length > 0)
-    .map((line) => JSON.parse(line));
-}
+import { syntheticStatusFor, STATUSES, getStatus } from './status.js';
 
 /**
- * File-based DatalakeAdapter. `dir` defaults to the synthetic demo lake;
- * set DATALAKE_DIR to point at a real export with the same shape.
+ * @typedef {Object} MemberSource
+ * @property {(orgId: string) => object} statusFor  Lifecycle status for an org.
+ * @property {() => boolean} isSynthetic            True if statuses are demo data.
+ * @property {() => string} describe                Human label for the UI banner.
  */
-export function createFileAdapter(dir = process.env.DATALAKE_DIR || DEFAULT_DATALAKE_DIR) {
-  const donors = JSON.parse(readFileSync(join(dir, 'donors.json'), 'utf8'));
-  const events = readJsonl(join(dir, 'events.jsonl'));
-  const notes = readJsonl(join(dir, 'notes.jsonl'));
 
-  const eventsByCustomer = new Map();
-  for (const e of events) {
-    if (!eventsByCustomer.has(e.customer_id)) eventsByCustomer.set(e.customer_id, []);
-    eventsByCustomer.get(e.customer_id).push(e);
-  }
-  const notesByCustomer = new Map();
-  for (const n of notes) {
-    if (!notesByCustomer.has(n.customer_id)) notesByCustomer.set(n.customer_id, []);
-    notesByCustomer.get(n.customer_id).push(n);
-  }
-
+/**
+ * The demo source. Statuses are a hash of the org id: reproducible, and
+ * transparently arbitrary. Consults no record of any kind.
+ * @returns {MemberSource}
+ */
+export function createDemoSource() {
   return {
-    /** Lightweight roster for pickers: [{id, display_name, membership_tier}] */
-    listCustomers() {
-      return donors.map((d) => ({
-        id: d.customer_id,
-        display_name: d.display_name,
-        membership_tier: d.membership_tier,
-      }));
+    statusFor(orgId) {
+      return syntheticStatusFor(orgId);
     },
-
-    /**
-     * Everything the lake knows about one constituent:
-     * {profile, events[], notes[]}. Null when unknown.
-     */
-    getCustomer(id) {
-      const profile = donors.find((d) => d.customer_id === id);
-      if (!profile) return null;
-      return {
-        profile,
-        events: eventsByCustomer.get(id) || [],
-        notes: notesByCustomer.get(id) || [],
-      };
+    isSynthetic() {
+      return true;
     },
-
-    /** Every customer bundle (index-building). */
-    allCustomers() {
-      return donors.map((d) => this.getCustomer(d.customer_id));
+    describe() {
+      return 'Demo source - statuses are randomly assigned, not real relationships.';
     },
   };
 }
+
+/**
+ * The real source. NOT IMPLEMENTED HERE, and not implementable here.
+ *
+ * This stub exists to pin the contract down precisely enough that the real
+ * implementation in `xyz-outreach` is a drop-in, and to fail loudly rather than
+ * silently falling back to demo data if someone points MEMBER_SOURCE at it.
+ *
+ * A real implementation would:
+ *   - read the member/CRM export (org id -> lifecycle stage + supporting facts)
+ *   - return { id, label, meaning, synthetic: false, facts: [...] }
+ *     where `facts` are the sourced, checkable statements that justify the
+ *     status ("first disclosure published 2026-03-11") so the grounding gate
+ *     can verify relationship claims instead of banning them outright
+ *   - never widen beyond org level
+ *
+ * @returns {MemberSource}
+ */
+export function createRealSource() {
+  throw new Error(
+    'Real member source is not implemented in this public repo. It lives in the private ' +
+      'xyz-outreach tool. See the contract in src/datalake.js. This demo ships with ' +
+      'synthetic statuses only.'
+  );
+}
+
+/**
+ * THE SWITCH. Defaults to the demo source. Setting MEMBER_SOURCE=real is what a
+ * real deployment would flip - and here it throws, because the real source is
+ * deliberately absent from a public repo.
+ * @returns {MemberSource}
+ */
+export function createMemberSource(mode = process.env.MEMBER_SOURCE || 'demo') {
+  if (mode === 'real') return createRealSource();
+  return createDemoSource();
+}
+
+/** The status vocabulary is shared by both sources - a real CRM maps onto this ladder. */
+export { STATUSES, getStatus };

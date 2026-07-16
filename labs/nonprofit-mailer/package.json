@@ -1,14 +1,13 @@
 {
   "name": "nonprofit-mailer",
-  "version": "1.0.0",
-  "description": "AI-powered email campaign generator for nonprofits - by Random Knights",
+  "version": "2.0.0",
+  "description": "AI Quality Blueprint demo: grounded, variance-tested nonprofit outreach drafts - by Random Knights",
   "type": "module",
-  "main": "src/index.js",
+  "main": "src/server.js",
   "scripts": {
-    "start": "node src/index.js",
-    "campaign": "node src/campaign.js",
+    "start": "node src/server.js",
     "serve": "node src/server.js",
-    "generate-data": "node data/generate.js"
+    "check": "node --check src/ai.js && node --check src/campaigns.js && node --check src/datalake.js && node --check src/grounding.js && node --check src/orgs.js && node --check src/sender.js && node --check src/server.js && node --check src/status.js && node --check src/variance.js"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.39.0"

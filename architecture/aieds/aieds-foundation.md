@@ -1,4 +1,4 @@
-# AI Environmental Disclosure Standard Foundation
+# AI Energy Disclosure Standard Foundation
 
 Date: 2026-06-05
 
@@ -9,7 +9,7 @@ changes.
 
 ## Purpose
 
-AI Environmental Disclosure Standard (AIEDS) v1 is the Random Knights
+AI Energy Disclosure Standard (AIEDS) v1 is the Random Knights
 ecosystem standard for reporting AI environmental impact in a consistent,
 educational, transparent, and provider-agnostic way.
 

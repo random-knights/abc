@@ -1,4 +1,4 @@
-# AI Environmental Disclosure Standard (AIEDS) — Open Standard Draft
+# AI Energy Disclosure Standard (AIEDS) — Open Standard Draft
 
 Status: Draft v0.1 (open-standard framing). Date: 2026-06-11
 

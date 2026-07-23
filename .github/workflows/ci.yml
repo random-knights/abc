@@ -2,28 +2,21 @@ name: CI
 
 on:
   workflow_dispatch:
+  # NO paths filter on purpose: this job produces the "CI Gate" required
+  # status check (org ruleset ci-gate-required). A required check must run
+  # on every PR to main, or a PR that doesn't touch the filtered paths (e.g.
+  # a workflow-only PR like the gitleaks secret-scan add) leaves the check
+  # permanently pending and GitHub refuses to merge. Unlike a path-scoped,
+  # non-required validation (which can safely stay pending on unrelated
+  # PRs), the required gate always runs and always concludes.
   pull_request:
     branches:
       - main
-    paths:
-      - .github/workflows/ci.yml
-      - README.md
-      - .gitignore
-      - lessons/**
-      - labs/**
-      - assets/**
   push:
     branches:
       - main
       - chore/**
       - feature/**
-    paths:
-      - .github/workflows/ci.yml
-      - README.md
-      - .gitignore
-      - lessons/**
-      - labs/**
-      - assets/**
 
 permissions:
   contents: read

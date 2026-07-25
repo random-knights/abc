@@ -37,4 +37,4 @@ Ecosystem docs (architecture, ADRs, runbooks, conventions) live in
 
 - [RUNBOOK.md](RUNBOOK.md) - humans: how this repo works, what breaks and how to
   fix it. No build, no toolchain, no secrets.
-- [CODEX.md](CODEX.md) - agents: the rules that apply in this repo.
+- [AGENTS.md](AGENTS.md) - agents: the rules that apply in this repo.

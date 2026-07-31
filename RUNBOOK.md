@@ -1,6 +1,6 @@
 # RUNBOOK - abc / c1assr00m (human operator)
 
-For agent rules see `CODEX.md`. This is for a human with a terminal.
+For agent rules see `AGENTS.md`. This is for a human with a terminal.
 
 abc is the public learning environment behind
 [c1assr00m.rand0m.ai](https://c1assr00m.rand0m.ai): lessons, labs, missions.

@@ -18,7 +18,7 @@ lessons, labs, and assets.
 Open the repo root:
 
 ```text
-C:\Projects\qa-kitt\abc
+C:\rand0m\abc
 ```
 
 Review these folders:

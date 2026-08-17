@@ -1,8 +1,8 @@
-# CODEX - agent rules for abc (c1assr00m)
+# AGENTS - agent rules for abc (c1assr00m)
 
-Canonical rules live in `C:\rand0m\CODEX.md` (the working-root codex). This
+Canonical rules live in `C:\rand0m\AGENTS.md` (the working-root standard). This
 file restates what an agent MUST follow here and adds the abc specifics. If the
-two ever disagree, the working-root codex wins.
+two ever disagree, the working-root standard wins.
 
 abc is **c1assr00m**: a public, student-facing learning environment (lessons,
 labs, missions). It is not application code. The app is `xyz`.
@@ -37,7 +37,9 @@ corruption (NUL-padded config/packed-refs, stale index.lock).
 
 ## Toolchain
 
-None. This repo is Markdown lessons and labs. No Flutter, no Node, no build.
+Lessons 01 through 10 are Markdown-only. Lab 11 is the single labeled
+exception: its standalone Python asset demonstrates live provider routing and
+trace capture. It is not imported by app code and adds no repo-wide build.
 For org context: Flutter 3.38.3 lives at `C:\flutter`; never use `setx` to edit
 the USER PATH (it is over the 1024-char setx cap and truncates silently).
 
@@ -48,16 +50,16 @@ and it is aimed at students.
 
 - Plain words beat precise jargon. If a term is unavoidable, define it in place.
 - Never assume a prior module was read. Say where things are.
-- Do not add build tooling, package managers, or a toolchain to "improve" it.
-  The lack of setup is a feature: a student needs a browser and a text editor.
+- Do not add build tooling, package managers, or a toolchain to "improve" the
+  classroom. Lab 11's isolated Python requirements are the only exception.
 - Do not put anything secret, private, or internal here. Everything in this repo
   is world-readable, and it is linked from the public org profile.
 
 ## Secrets
 
-**None, and it must stay that way.** No workflow here takes a secret. If a
-lesson needs an API key to complete, the lesson is wrong: rewrite it to use a
-keyless or mocked path.
+No workflow here takes a secret. Lab 11 may read `OPENAI_API_KEY` and
+`ANTHROPIC_API_KEY` from the local environment only. Keys, `.env` files, and
+generated credential material must never be committed.
 
 ## Workflow
 

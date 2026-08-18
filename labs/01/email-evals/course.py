@@ -338,6 +338,11 @@ def lesson_13() -> None:
         "deterministicReleaseFailures": failures,
         "releaseGate": "ready" if failures == 0 else "blocked",
     }
+    OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+    (OUTPUT_DIR / "monitoring-summary.json").write_text(
+        json.dumps(summary, indent=2) + "\n",
+        encoding="utf-8",
+    )
     print(json.dumps(summary, indent=2))
     if failures:
         raise RuntimeError(f"Release gate blocked by {failures} deterministic failures")

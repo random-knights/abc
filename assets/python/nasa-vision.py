@@ -1,9 +1,9 @@
+import os
 import requests
 import cv2
 from math import radians, sin, cos, sqrt, atan2
 
-# Replace 'YOUR_API_KEY' with your NASA Earthdata API key
-API_KEY = 'YOUR_API_KEY'
+API_KEY = os.environ.get('NASA_API_KEY')
 
 def download_satellite_image(latitude, longitude, date, output_file):
     url = f'https://api.nasa.gov/planetary/earth/imagery/?lon={longitude}&lat={latitude}&date={date}&dim=0.1&api_key={API_KEY}'
@@ -30,6 +30,9 @@ def calculate_distance(lat1, lon1, lat2, lon2):
     return distance * 0.621371  # Convert distance to miles
 
 def main():
+    if not API_KEY:
+        raise RuntimeError('Set NASA_API_KEY before running this script.')
+
     # Specify the location coordinates (latitude and longitude) you want to analyze
     target_latitude = 37.7749
     target_longitude = -122.4194

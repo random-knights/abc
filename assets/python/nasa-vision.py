@@ -1,16 +1,19 @@
 import os
 import requests
 import cv2
+import numpy as np
 from math import radians, sin, cos, sqrt, atan2
 
 API_KEY = os.environ.get('NASA_API_KEY')
 
-def download_satellite_image(latitude, longitude, date, output_file):
+def download_satellite_image(latitude, longitude, date):
     url = f'https://api.nasa.gov/planetary/earth/imagery/?lon={longitude}&lat={latitude}&date={date}&dim=0.1&api_key={API_KEY}'
     response = requests.get(url)
-    image_data = response.content
-    with open(output_file, 'wb') as f:
-        f.write(image_data)
+    response.raise_for_status()
+    return cv2.imdecode(
+        np.frombuffer(response.content, dtype=np.uint8),
+        cv2.IMREAD_COLOR,
+    )
 
 def calculate_distance(lat1, lon1, lat2, lon2):
     R = 6371.0  # Earth's radius in kilometers
@@ -48,18 +51,14 @@ def main():
     # Download the two most recent satellite images
     image_url_1 = assets_data['results'][0]['url']
     image_url_2 = assets_data['results'][1]['url']
-    download_satellite_image(target_latitude, target_longitude, image_url_1, 'satellite_image_1.jpg')
-    download_satellite_image(target_latitude, target_longitude, image_url_2, 'satellite_image_2.jpg')
+    image1 = download_satellite_image(target_latitude, target_longitude, image_url_1)
+    image2 = download_satellite_image(target_latitude, target_longitude, image_url_2)
 
     # Calculate distance between the two satellite images' locations and check if it's within 50 miles
     distance = calculate_distance(target_latitude, target_longitude, assets_data['results'][0]['centroid']['lat'], assets_data['results'][0]['centroid']['lon'])
     if distance > 50:
         print("The two most recent satellite images are not within a 50-mile radius.")
         return
-
-    # Perform image comparison using OpenCV (you can customize this part based on your comparison criteria)
-    image1 = cv2.imread('satellite_image_1.jpg')
-    image2 = cv2.imread('satellite_image_2.jpg')
 
     # Perform image comparison logic here...
     # You can use image processing techniques like pixel-wise comparisons, histogram comparisons, etc.

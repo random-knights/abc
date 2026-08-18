@@ -7,4 +7,5 @@ data/*.json
 traces/*.jsonl
 outputs/*.txt
 outputs/*.jsonl
+outputs/*.json
 !data/campaign_fixture.json

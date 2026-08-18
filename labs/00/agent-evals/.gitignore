@@ -7,6 +7,3 @@ data/*.parquet
 traces/*.jsonl
 outputs/*.txt
 !data/store_sales_fixture.parquet
-!traces/model_calls.jsonl
-!outputs/phase1_openai_transcript.txt
-!outputs/phase2_provider_comparison.txt

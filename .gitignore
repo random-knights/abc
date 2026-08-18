@@ -29,6 +29,8 @@ __pycache__/
 *.pyc
 .venv/
 venv/
+labs/00/agent-evals/outputs/
+labs/00/agent-evals/traces/
 
 # OS/editor noise
 .DS_Store

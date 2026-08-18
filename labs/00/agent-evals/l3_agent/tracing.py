@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 import json
-import os
 import time
 import uuid
 from dataclasses import dataclass, field
@@ -18,6 +17,8 @@ from .impact import estimate_aieds
 class TraceSink:
     path: Path
     session_id: str = field(default_factory=lambda: str(uuid.uuid4()))
+    source: str = "agent-evals-course"
+    cwd_label: str = "agent-evals-course"
 
     def append(
         self,
@@ -42,9 +43,9 @@ class TraceSink:
             "tokensIn": tokens_in,
             "tokensOut": tokens_out,
             **impact,
-            "source": "rk_evals-l3-lab",
+            "source": self.source,
             "sessionId": self.session_id,
-            "cwd": os.getcwd(),
+            "cwd": self.cwd_label,
             "latencyMs": latency_ms,
             "toolCallsChosen": tool_calls_chosen,
             "outcome": outcome,

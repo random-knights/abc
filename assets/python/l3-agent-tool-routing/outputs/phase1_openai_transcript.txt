@@ -1,7 +1,0 @@
-provider: openai
-model: gpt-4o-mini
-query: Show me the code for a bar chart of total sales by store in November 2021 and tell me what trends you see.
-
-router turn 1: calling model
-
-ERROR: AuthenticationError: Error code: 401 - {'error': {'message': 'Incorrect API key provided: [REDACTED_API_KEY] You can find your API key at https://platform.openai.com/account/api-keys.', 'type': 'invalid_request_error', 'code': 'invalid_api_key', 'param': None}, 'status': 401}

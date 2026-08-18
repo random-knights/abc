@@ -10,10 +10,22 @@ from typing import Protocol
 
 import duckdb
 import pandas as pd
+from openinference.semconv.trace import SpanAttributes
+from opentelemetry.trace import Status, StatusCode
 from pydantic import BaseModel, Field
+
+from .observability import tracer
 
 
 TABLE_NAME = "sales"
+SQL_GENERATION_PROMPT = """
+Generate an SQL query based on a prompt. Do not reply with anything besides the SQL query.
+Use ASCII only. Do not use em dashes or en dashes.
+The prompt is: {prompt}
+
+The available columns are: {columns}
+The table name is: {table_name}
+""".strip()
 
 
 class TextModel(Protocol):
@@ -35,6 +47,7 @@ class VisualizationConfig(BaseModel):
 class LabTools:
     data_path: Path
     model: TextModel
+    sql_generation_prompt: str = SQL_GENERATION_PROMPT
 
     def _load_frame(self) -> pd.DataFrame:
         if not self.data_path.exists():
@@ -44,28 +57,36 @@ class LabTools:
         return pd.read_parquet(self.data_path)
 
     def generate_sql_query(self, prompt: str, columns: list[str]) -> str:
-        formatted_prompt = f"""
-Generate an SQL query based on a prompt. Do not reply with anything besides the SQL query.
-Use ASCII only. Do not use em dashes or en dashes.
-The prompt is: {prompt}
-
-The available columns are: {columns}
-The table name is: {TABLE_NAME}
-""".strip()
+        formatted_prompt = self.sql_generation_prompt.format(
+            prompt=prompt,
+            columns=columns,
+            table_name=TABLE_NAME,
+        )
         sql = self.model.complete_text(formatted_prompt, purpose="sql_generation")
         return _strip_fences(sql)
 
+    @tracer.tool()
     def lookup_sales_data(self, prompt: str) -> str:
         try:
             df = self._load_frame()
             sql_query = self.generate_sql_query(prompt, list(df.columns))
-            with duckdb.connect() as conn:
-                conn.register(TABLE_NAME, df)
-                result = conn.execute(sql_query).df()
-            return result.to_string(index=False)
+            with tracer.start_as_current_span(
+                "execute_sql_query", openinference_span_kind="chain"
+            ) as sql_span:
+                sql_span.set_attribute(SpanAttributes.INPUT_VALUE, sql_query)
+                sql_span.set_attribute(SpanAttributes.INPUT_MIME_TYPE, "text/plain")
+                with duckdb.connect() as conn:
+                    conn.register(TABLE_NAME, df)
+                    result = conn.execute(sql_query).df()
+                rendered = result.to_string(index=False)
+                sql_span.set_attribute(SpanAttributes.OUTPUT_VALUE, rendered)
+                sql_span.set_attribute(SpanAttributes.OUTPUT_MIME_TYPE, "text/plain")
+                sql_span.set_status(Status(StatusCode.OK))
+            return rendered
         except Exception as error:
             return f"Error accessing data: {type(error).__name__}: {error}"
 
+    @tracer.tool()
     def analyze_sales_data(self, prompt: str, data: str) -> str:
         formatted_prompt = f"""
 Analyze the following data:
@@ -82,7 +103,10 @@ Use ASCII only. Do not use em dashes or en dashes.
         except Exception as error:
             return f"No analysis could be generated: {type(error).__name__}"
 
-    def extract_chart_config(self, data: str, visualization_goal: str) -> VisualizationConfig:
+    @tracer.chain()
+    def extract_chart_config(
+        self, data: str, visualization_goal: str
+    ) -> VisualizationConfig:
         formatted_prompt = f"""
 Generate a chart config based on this data:
 {data}
@@ -94,7 +118,10 @@ Use ASCII only. Do not use em dashes or en dashes.
 """.strip()
         return self.model.structured_chart_config(formatted_prompt)
 
-    def create_chart(self, config: VisualizationConfig) -> str:
+    @tracer.chain()
+    def create_chart(self, data: str, config: VisualizationConfig) -> str:
+        # The source course omits data at this boundary. Lessons 7 onward evaluate
+        # the resulting placeholder-data defect instead of hiding it.
         prompt = f"""
 Write Python code to generate a chart based on this config.
 Return only runnable Python code.
@@ -105,10 +132,11 @@ Config:
 """.strip()
         return _strip_fences(self.model.complete_text(prompt, purpose="chart_code"))
 
+    @tracer.tool()
     def generate_visualization(self, data: str, visualization_goal: str) -> str:
         try:
             config = self.extract_chart_config(data, visualization_goal)
-            return self.create_chart(config)
+            return self.create_chart(data, config)
         except Exception as error:
             return f"Visualization code could not be generated: {type(error).__name__}: {error}"
 

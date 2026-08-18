@@ -1,7 +1,7 @@
 """Generate the synthetic L3 lab parquet fixture.
 
-Synthetic lab fixture only. This data is for the abc L3 lab and must never be
-used by app code or product features.
+Synthetic course fixture only. It must never be used by application code or
+product features.
 """
 
 from __future__ import annotations

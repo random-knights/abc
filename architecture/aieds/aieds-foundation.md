@@ -1,5 +1,13 @@
 # AI Energy Disclosure Standard Foundation
 
+> **CORRECTED 2026-08-21.** This document stated `1 MRT = 22 kg CO2e/year`,
+> which was the AIEDS 1.x value. Canonical methodology 2.0.0 (2026-07-12)
+> unified the Mature Reference Tree at **21 kg CO2e/year**, and both Random
+> Knights implementations ship 21 000 g. The numbers, the worked example and
+> the version references below have been corrected to 2.0.0. The source of
+> truth is `aieds/spec/methodology.md`; where this document and that spec
+> disagree, the spec wins.
+
 Date: 2026-06-05
 
 Scope: architecture and app-foundation guidance only. This document does not
@@ -67,14 +75,14 @@ No live Earth linkage is enabled in A1.0.
 
 ## Mature Reference Tree Methodology
 
-AIEDS v1 defines Mature Reference Tree (MRT):
+AIEDS 2.0.0 defines Mature Reference Tree (MRT):
 
-- `1 MRT = 22 kg CO2e/year`
+- `1 MRT = 21 kg CO2e/year`
 
 Tree-Time formula:
 
 ```text
-tree_time_minutes = (carbon_g_co2e / 22000) * 525600
+tree_time_minutes = (carbon_g_co2e / 21000) * 525600
 ```
 
 Assumptions:

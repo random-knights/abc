@@ -1,5 +1,13 @@
 # AI Energy Disclosure Standard (AIEDS) — Open Standard Draft
 
+> **CORRECTED 2026-08-21.** This document stated `1 MRT = 22 kg CO2e/year`,
+> which was the AIEDS 1.x value. Canonical methodology 2.0.0 (2026-07-12)
+> unified the Mature Reference Tree at **21 kg CO2e/year**, and both Random
+> Knights implementations ship 21 000 g. The numbers, the worked example and
+> the version references below have been corrected to 2.0.0. The source of
+> truth is `aieds/spec/methodology.md`; where this document and that spec
+> disagree, the spec wins.
+
 Status: Draft v0.1 (open-standard framing). Date: 2026-06-11
 
 Scope: this document drafts AIEDS as a **publishable open standard**. It builds
@@ -76,8 +84,8 @@ AIEDS defines a Mature Reference Tree (MRT) for the educational Tree-Time
 equivalency:
 
 ```text
-1 MRT = 22 kg CO2e / year
-tree_time_minutes = (carbon_g_co2e / 22000) * 525600
+1 MRT = 21 kg CO2e / year
+tree_time_minutes = (carbon_g_co2e / 21000) * 525600
 ```
 
 MRT is a stable educational reference, not a claim about any specific tree,
@@ -104,13 +112,13 @@ MAY substitute documented values):
 Disclosures MUST NOT claim a tier they cannot support, and MUST avoid
 certification or environmental-outcome language above their tier.
 
-## 5. Disclosure Schema (v1)
+## 5. Disclosure Schema (2.0.0)
 
 A conforming disclosure is an object with at least:
 
 ```json
 {
-  "version": "AIEDS v1",
+  "version": "AIEDS 2.0.0",
   "confidence": "Estimated",
   "energy_wh": 0.42,
   "carbon_g_co2e": 0.18,
@@ -120,9 +128,9 @@ A conforming disclosure is an object with at least:
   "<ENV_VAR>": 120,
   "<ENV_VAR>": 80,
   "cost_usd": 0.0012,
-  "methodology": "AIEDS v1; MRT=22kg CO2e/yr; grid=429 g/kWh (modeled)",
+  "methodology": "AIEDS 2.0.0; MRT=21kg CO2e/yr; grid=429 g/kWh (modeled)",
   "equivalencies": {
-    "tree_time_minutes": 4.30,
+    "tree_time_minutes": 4.51,
     "phone_charges": 0.0349,
     "led_bulb_hours": 0.0419,
     "laptop_minutes": 0.503,
@@ -145,7 +153,7 @@ the rest behind an expand affordance (the Random Knights reference pattern).
 - The standard is versioned (`AIEDS v1`, then `v2`, …). Methodology changes that
   alter values require a version bump.
 - Mixed methodologies MUST NOT be combined without explicit disclosure (e.g. a
-  legacy `21 kg/yr` Tree-Time surface must be labeled until migrated).
+  legacy `22 kg/yr` Tree-Time surface must be labeled until migrated).
 - Governance/contribution process and license are TBD before public release;
   intent is a permissive open license for the specification text.
 

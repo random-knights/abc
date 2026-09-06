@@ -14,7 +14,7 @@
 
 ## What it is
 
-[C1assr00m](https://c1assr00m.rand0m.ai) — a structured learning environment:
+[C1assr00m](https://c1assr00m.rand0m.ai) is a structured learning environment:
 an intro to development, AI, automation, and S.T.E.A.M. through guided
 missions and hands-on practice. Learning modules live as organized folders so
 students progress step-by-step in one unified workspace, with a pathway into

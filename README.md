@@ -4,9 +4,7 @@
 <br />
 <div align="center">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://github.com/random-knights/.github/blob/main/assets/_c1assr00m/ce-drk.gif">
-    <source media="(prefers-color-scheme: light)" srcset="https://github.com/random-knights/.github/blob/main/assets/_c1assr00m/ce-lte.png">
-    <img alt="Shows a Day/Night themed markedown gif based on AM/PM." src="https://github.com/random-knights/.github/blob/main/assets/_c1assr00m/ce-drk.gif">
+    <img alt="Random Knights Classroom Engineering" src="assets/abc-ce.png">
   </picture>
 
 <h3 align="center" style="color:#ff4124">Random Knights, XYZ - c1assr00m</h3>
@@ -19,6 +17,10 @@ an intro to development, AI, automation, and S.T.E.A.M. through guided
 missions and hands-on practice. Learning modules live as organized folders so
 students progress step-by-step in one unified workspace, with a pathway into
 the wider Rand0m projects.
+
+<div align="center">
+  <img alt="Random Knights Classroom Engineering" src="assets/abc.gif">
+</div>
 
 ## Quickstart
 

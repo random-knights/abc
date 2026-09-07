@@ -14,10 +14,10 @@ Verified on 2026-08-18 with local Phoenix serving on port 6006.
 - OpenAI and Anthropic both produced labeled, checked draft transcripts.
 - Phoenix recorded 10 experiments and 44 evaluations.
 - The deterministic release gate found 0 failures and reported `ready`.
-- AIEDS recorded 130 successful model calls and no error outcomes.
+- AiEDs recorded 130 successful model calls and no error outcomes.
 - The run used 202,839 tokens: 163,921 input and 38,918 output.
 - Modeled impact was 55.348166 Wh, 23.744363 g CO2e, and 594.287491
-  tree-time minutes under AIEDS v2.
+  tree-time minutes under AiEDs v2.
 - Models were `gpt-4o-mini` for 45 calls, `gpt-4o` for 12 judge calls, and
   `claude-sonnet-5` for 73 calls.
 - Phoenix readback showed successful OpenAI and Anthropic `AgentRun` trees with

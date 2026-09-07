@@ -9,7 +9,7 @@ The lab provides:
 
 - one provider-neutral router with OpenAI and Anthropic adapters;
 - typed lookup, analysis, and visualization tools;
-- one append-only AIEDS v2 record per model call;
+- one append-only AiEDs v2 record per model call;
 - one Phoenix agent span tree per query;
 - a labeled synthetic parquet fixture that can be regenerated locally.
 

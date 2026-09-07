@@ -12,7 +12,7 @@ After lessons 09, 11, and 12:
 .\.venv\Scripts\python.exe course.py 13
 ```
 
-The monitor reads local experiment and AIEDS JSONL, counts provider coverage,
+The monitor reads local experiment and AiEDs JSONL, counts provider coverage,
 and reports detections of the known chart defect. The known defect blocks the
 example release gate. It is evidence, not a reason to weaken the evaluator.
 
@@ -20,7 +20,7 @@ Production adds novel inputs, model updates, API failures, drift, and user
 feedback. Curate representative failures into a reviewed golden dataset. Run
 the same experiments in delivery gates and compare changes over time.
 
-## AIEDS
+## AiEDs
 
 Monitoring combines quality with model-call volume, latency, energy, carbon,
 and tree-time. A quality improvement that sharply increases resource impact is

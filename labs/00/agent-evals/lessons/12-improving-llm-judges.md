@@ -18,9 +18,9 @@ Use deterministic labels to measure judge agreement. Improve the prompt or
 judge model, then rerun the same cases. Semantic similarity is appropriate when
 ground truth is meaning rather than an exact discrete label.
 
-## AIEDS
+## AiEDs
 
-Judge experiments are model workloads. Their AIEDS rows make the cost of judge
+Judge experiments are model workloads. Their AiEDs rows make the cost of judge
 calibration explicit instead of treating evaluation as free.
 
 ## Decision

@@ -41,7 +41,7 @@ Change them with `PHOENIX_COLLECTOR_ENDPOINT`, `PHOENIX_SERVER_URL`, and
 `PHOENIX_PROJECT_NAME`.
 
 If Phoenix is down, the agent still runs. The terminal says span export is
-disabled, and AIEDS JSONL continues to append. Experiments use a local fallback
+disabled, and AiEDs JSONL continues to append. Experiments use a local fallback
 instead of silently disappearing.
 
 ## Follow The Course
@@ -79,14 +79,14 @@ course keeps that verified defect visible:
 This is the central result: an evaluator can be green and still measure the
 wrong property.
 
-## AIEDS
+## AiEDs
 
-Every model call appends one AIEDS v2 JSON object to
+Every model call appends one AiEDs v2 JSON object to
 `traces/model_calls.jsonl`. Set `AIEDS_TRACE_PATH` to change the destination,
 `AIEDS_SOURCE` to change the source label, and `AIEDS_CWD_LABEL` to set a
 non-sensitive workspace label. The logger never records key values.
 
-Phoenix spans retain hierarchy and nested latency. AIEDS retains token,
+Phoenix spans retain hierarchy and nested latency. AiEDs retains token,
 energy, carbon, tree-time, estimator version, and confidence fields. Keep both.
 
 Runtime outputs are ignored by Git. `evidence/verified-runs.md` contains
@@ -110,7 +110,7 @@ sanitized excerpts from real verification runs.
 1. Add one lesson note under `lessons/` and one runnable `course.py` path.
 2. Add only direct, pinned dependencies to `requirements.txt`.
 3. Preserve both provider adapters wherever model calls apply.
-4. Keep Phoenix failure explicit and AIEDS appending independent.
+4. Keep Phoenix failure explicit and AiEDs appending independent.
 5. Add deterministic ground truth before adding an LLM judge.
 6. Run from a fresh environment and update real-run evidence.
 7. Sweep for secrets, private paths, private names, and em dashes.

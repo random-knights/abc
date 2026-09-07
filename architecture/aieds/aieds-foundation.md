@@ -1,7 +1,7 @@
 # AI Energy Disclosure Standard Foundation
 
 > **CORRECTED 2026-08-21.** This document stated `1 MRT = 22 kg CO2e/year`,
-> which was the AIEDS 1.x value. Canonical methodology 2.0.0 (2026-07-12)
+> which was the AiEDs 1.x value. Canonical methodology 2.0.0 (2026-07-12)
 > unified the Mature Reference Tree at **21 kg CO2e/year**, and both Random
 > Knights implementations ship 21 000 g. The numbers, the worked example and
 > the version references below have been corrected to 2.0.0. The source of
@@ -17,11 +17,11 @@ changes.
 
 ## Purpose
 
-AI Energy Disclosure Standard (AIEDS) v1 is the Random Knights
+AI Energy Disclosure Standard (AiEDs) v1 is the Random Knights
 ecosystem standard for reporting AI environmental impact in a consistent,
 educational, transparent, and provider-agnostic way.
 
-AIEDS is intended to align agent responses, reports, Earth Intelligence,
+AiEDs is intended to align agent responses, reports, Earth Intelligence,
 automation summaries, test results, podcasts, and daily summaries around one
 methodology. It does not imply exact emissions, provider certification, offset
 quality, restoration outcomes, or verified environmental impact unless a future
@@ -29,14 +29,14 @@ phase adds approved evidence and confidence rules.
 
 ## Foundation Model
 
-AIEDS v1 defines these foundation types:
+AiEDs v1 defines these foundation types:
 
 - `AIEDSMetric`: one reportable measurement or equivalency.
 - `AIEDSDisclosure`: one rendered disclosure attached to a response, report,
   test result, or automation summary.
 - `AIEDSMethodology`: assumptions, formulae, limitations, and future context.
 - `AIEDSConfidence`: confidence label for the disclosure.
-- `AIEDSVersion`: version metadata, starting with `AIEDS v1`.
+- `AIEDSVersion`: version metadata, starting with `AiEDs v1`.
 
 ## Metric Hierarchy
 
@@ -75,7 +75,7 @@ No live Earth linkage is enabled in A1.0.
 
 ## Mature Reference Tree Methodology
 
-AIEDS 2.0.0 defines Mature Reference Tree (MRT):
+AiEDs 2.0.0 defines Mature Reference Tree (MRT):
 
 - `1 MRT = 21 kg CO2e/year`
 
@@ -99,12 +99,12 @@ Limitations:
 - Provider energy data is not available by default.
 - Regional grid mix varies and is future Earth context.
 - Human equivalencies are illustrative.
-- AIEDS v1 does not add verification, certification, or provider-derived
+- AiEDs v1 does not add verification, certification, or provider-derived
   measurement.
 
 ## Confidence Model
 
-AIEDS v1 confidence states:
+AiEDs v1 confidence states:
 
 - Estimated.
 - Modeled.
@@ -166,7 +166,7 @@ Energy: 0.42 Wh
 Carbon: 0.18 g CO2e
 Tree-Time: 3.2 minutes
 Confidence: Estimated
-Methodology: AIEDS v1
+Methodology: AiEDs v1
 ```
 
 The sample is concise and illustrative. Formula-derived Tree-Time disclosures
@@ -175,7 +175,7 @@ different educational example value.
 
 ## A1.1 Response Metrics Integration
 
-A1.1 integrates AIEDS v1 into response and reporting surfaces without adding
+A1.1 integrates AiEDs v1 into response and reporting surfaces without adding
 provider-specific live measurement.
 
 Compact default display:
@@ -200,17 +200,17 @@ Expanded/details display:
 
 Required copy:
 
-- `AIEDS v1 estimated disclosure`
+- `AiEDs v1 estimated disclosure`
 - `Energy and carbon are modeled estimates.`
 - `Tree-Time and equivalents are educational comparisons.`
 
-Reporting surfaces may show AIEDS readiness when runner metrics are not yet
+Reporting surfaces may show AiEDs readiness when runner metrics are not yet
 available. They must not fabricate execution impact, offsetting, restoration,
 or verified environmental claims.
 
 ## Current Boundary
 
-AIEDS v1 foundation work does not add:
+AiEDs v1 foundation work does not add:
 
 - Provider integrations.
 - Earth runtime changes.

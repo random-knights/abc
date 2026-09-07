@@ -1,4 +1,4 @@
-"""AIEDS v2 impact helpers using the app's field names."""
+"""AiEDs v2 impact helpers using the app's field names."""
 
 from __future__ import annotations
 

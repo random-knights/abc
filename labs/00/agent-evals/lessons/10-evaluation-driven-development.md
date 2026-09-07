@@ -18,8 +18,8 @@ The course's lesson 11 experiment changes only the SQL generation prompt between
 v1 and v2. The chart defect remains unchanged, which prevents an unrelated
 prompt edit from being credited with fixing it.
 
-## AIEDS
+## AiEDs
 
-This planning lesson makes no model calls. The experiment runner records AIEDS
+This planning lesson makes no model calls. The experiment runner records AiEDs
 for both baseline and candidate so efficiency regressions remain visible beside
 quality scores.

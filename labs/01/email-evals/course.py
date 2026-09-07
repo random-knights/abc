@@ -320,7 +320,7 @@ def lesson_13() -> None:
     if not experiments:
         raise RuntimeError("No experiment records exist. Run lessons 09, 11, and 12 first.")
     if not aieds:
-        raise RuntimeError("No AIEDS records exist. Run a model-backed lesson first.")
+        raise RuntimeError("No AiEDs records exist. Run a model-backed lesson first.")
     evaluations = [item for record in experiments for item in record.get("evaluationRuns", [])]
     core_names = {"expected_tools", "campaign_id", "email_format", "deterministic_safety", "draft_only"}
     failures = 0

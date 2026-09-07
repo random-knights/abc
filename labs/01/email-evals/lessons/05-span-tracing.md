@@ -5,4 +5,4 @@ Start Phoenix, then run `course.py 05 --provider both` and
 LLM calls, tool spans, the nested draft model call, and the deterministic check.
 
 The span tree shows where a brief entered, where prose was generated, and where
-the safety decision was made. AIEDS records energy and carbon beside that tree.
+the safety decision was made. AiEDs records energy and carbon beside that tree.

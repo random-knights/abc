@@ -26,7 +26,7 @@ chart data. The added deterministic fidelity evaluator does. This does not
 rewrite the source result; it exposes the blind spot and measures the property
 the artifact actually needs.
 
-## AIEDS
+## AiEDs
 
 Every baseline, candidate, and judge call appends. Compare quality changes with
 tokens, latency, energy, carbon, and tree-time before recommending v2.

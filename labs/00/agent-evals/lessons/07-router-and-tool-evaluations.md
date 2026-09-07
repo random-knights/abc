@@ -20,9 +20,9 @@ whether code compiles; it does not answer whether the chart represents its
 input. `chart_data_fidelity` checks that source values survive into the output
 and catches the verified defect on both providers.
 
-## AIEDS
+## AiEDs
 
-Agent and judge calls append to the same AIEDS JSONL with distinct run IDs and
+Agent and judge calls append to the same AiEDs JSONL with distinct run IDs and
 outcome purposes. This adds the resource cost of evaluation beside the cost of
 generation.
 

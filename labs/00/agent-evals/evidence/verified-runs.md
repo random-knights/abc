@@ -17,7 +17,7 @@ Verified results:
 - lessons 03, 05, 06, 07, 08, 09, 10, 11, 12, and 13 completed;
 - both providers completed without an authentication, transport, or model error;
 - Phoenix recorded 10 experiments and 46 evaluation results;
-- AIEDS v2 recorded 131 successful model calls and 83,107 tokens;
+- AiEDs v2 recorded 131 successful model calls and 83,107 tokens;
 - the recorded estimate was 25.8065 Wh, 11.0710 g CO2e, and 277.09 minutes
   of tree time;
 - the chart data fidelity evaluator detected the known placeholder-data defect

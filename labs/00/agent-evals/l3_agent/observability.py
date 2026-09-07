@@ -35,7 +35,7 @@ class TracingState:
             )
         return (
             f"PHOENIX: unavailable at {self.collector_endpoint}; span export disabled "
-            f"({self.reason}); AIEDS JSONL remains active"
+            f"({self.reason}); AiEDs JSONL remains active"
         )
 
     def flush(self) -> bool:

@@ -41,7 +41,7 @@ Feature surfaces inside `apps/rand0m`:
 | Surface | Role | Notes |
 | --- | --- | --- |
 | Home / XYZ | Landing, discovery, active-agent terminal | Default `/` route |
-| `random1y` | Multi-provider AI chat | Provider/model selection, AIEDS impact disclosure |
+| `random1y` | Multi-provider AI chat | Provider/model selection, AiEDs impact disclosure |
 | `knight1y` | Agent command space | Roster, chat, history; a page, never the default route |
 | `c0nnect` / Earth | Connection graph + Earth Intelligence console | Two cooperating domains, distinct ownership |
 | `oracles` | Oracle content experiences | — |

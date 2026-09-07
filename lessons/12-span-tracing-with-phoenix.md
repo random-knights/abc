@@ -20,8 +20,8 @@ AgentRun [AGENT]
 The collector defaults to `http://127.0.0.1:6006/v1/traces` and project
 `agent-evals-course`. Both are configurable by environment. If Phoenix is not
 running, the lab states that export is disabled, completes the agent run, and
-continues appending AIEDS JSONL.
+continues appending AiEDs JSONL.
 
-Spans provide hierarchy and nested latency. AIEDS provides token, energy,
+Spans provide hierarchy and nested latency. AiEDs provides token, energy,
 carbon, tree-time, estimator version, and confidence fields. They are
 complementary records.

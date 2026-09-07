@@ -21,9 +21,9 @@ Check the printed tool sequence, the final response, and
 `traces/model_calls.jsonl`. A successful answer is not enough. Confirm that the
 lookup output reaches downstream tools and that no unsupported tool was called.
 
-## AIEDS
+## AiEDs
 
-This lesson establishes one append-only AIEDS row per router or tool-internal
+This lesson establishes one append-only AiEDs row per router or tool-internal
 model call. It adds provider, model, tokens, latency, selected tools, outcome,
 energy, carbon, and tree-time beside the human-readable transcript.
 

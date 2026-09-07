@@ -19,8 +19,8 @@ terminal states that fallback.
 
 Use `--full` for the expanded question set.
 
-## AIEDS
+## AiEDs
 
-The experiment adds cross-run path scores. AIEDS adds per-call resource impact,
+The experiment adds cross-run path scores. AiEDs adds per-call resource impact,
 which lets you compare a path score with actual model work instead of assuming
 step count and impact are identical.

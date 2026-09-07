@@ -18,9 +18,9 @@ Router evaluation has two separate questions: was the function correct, and
 were its parameters correct? Tool evaluation follows the same rule. Evaluate
 the whole tool and risky sub-steps such as SQL generation or chart generation.
 
-## AIEDS
+## AiEDs
 
-This conceptual lesson makes no model call and adds no AIEDS row. Later judge
+This conceptual lesson makes no model call and adds no AiEDs row. Later judge
 calls append through the same logger as agent calls, so judge cost is visible.
 
 ## Decision

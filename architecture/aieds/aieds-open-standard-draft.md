@@ -1,7 +1,7 @@
-# AI Energy Disclosure Standard (AIEDS) — Open Standard Draft
+# AI Energy Disclosure Standard (AiEDs) — Open Standard Draft
 
 > **CORRECTED 2026-08-21.** This document stated `1 MRT = 22 kg CO2e/year`,
-> which was the AIEDS 1.x value. Canonical methodology 2.0.0 (2026-07-12)
+> which was the AiEDs 1.x value. Canonical methodology 2.0.0 (2026-07-12)
 > unified the Mature Reference Tree at **21 kg CO2e/year**, and both Random
 > Knights implementations ship 21 000 g. The numbers, the worked example and
 > the version references below have been corrected to 2.0.0. The source of
@@ -10,7 +10,7 @@
 
 Status: Draft v0.1 (open-standard framing). Date: 2026-06-11
 
-Scope: this document drafts AIEDS as a **publishable open standard**. It builds
+Scope: this document drafts AiEDs as a **publishable open standard**. It builds
 on the internal foundation in [`aieds-foundation.md`](aieds-foundation.md) and the
 shipped Random Knights implementation (Random1y response disclosures), and
 reframes them for external adoption. It does not change runtime behavior; it
@@ -21,7 +21,7 @@ to be open and implementable by anyone.
 
 ## 1. Purpose
 
-AIEDS is a provider-agnostic standard for disclosing the environmental impact of
+AiEDs is a provider-agnostic standard for disclosing the environmental impact of
 an AI interaction in a consistent, educational, and honest way. It lets any
 product attach a comparable "nutrition label" to an AI response, report, agent
 output, test result, or automation summary.
@@ -80,7 +80,7 @@ they use.
 
 ### 3.2 Mature Reference Tree (Tree-Time)
 
-AIEDS defines a Mature Reference Tree (MRT) for the educational Tree-Time
+AiEDs defines a Mature Reference Tree (MRT) for the educational Tree-Time
 equivalency:
 
 ```text
@@ -118,7 +118,7 @@ A conforming disclosure is an object with at least:
 
 ```json
 {
-  "version": "AIEDS 2.0.0",
+  "version": "AiEDs 2.0.0",
   "confidence": "Estimated",
   "energy_wh": 0.42,
   "carbon_g_co2e": 0.18,
@@ -128,7 +128,7 @@ A conforming disclosure is an object with at least:
   "<ENV_VAR>": 120,
   "<ENV_VAR>": 80,
   "cost_usd": 0.0012,
-  "methodology": "AIEDS 2.0.0; MRT=21kg CO2e/yr; grid=429 g/kWh (modeled)",
+  "methodology": "AiEDs 2.0.0; MRT=21kg CO2e/yr; grid=429 g/kWh (modeled)",
   "equivalencies": {
     "tree_time_minutes": 4.51,
     "phone_charges": 0.0349,
@@ -141,7 +141,7 @@ A conforming disclosure is an object with at least:
 
 Required display copy (any surface rendering a disclosure):
 
-- `AIEDS v1 estimated disclosure`
+- `AiEDs v1 estimated disclosure`
 - `Energy and carbon are modeled estimates.`
 - `Tree-Time and equivalents are educational comparisons.`
 
@@ -150,7 +150,7 @@ the rest behind an expand affordance (the Random Knights reference pattern).
 
 ## 6. Versioning & Governance
 
-- The standard is versioned (`AIEDS v1`, then `v2`, …). Methodology changes that
+- The standard is versioned (`AiEDs v1`, then `v2`, …). Methodology changes that
   alter values require a version bump.
 - Mixed methodologies MUST NOT be combined without explicit disclosure (e.g. a
   legacy `22 kg/yr` Tree-Time surface must be labeled until migrated).
@@ -159,7 +159,7 @@ the rest behind an expand affordance (the Random Knights reference pattern).
 
 ## 7. Reference Implementation
 
-Random Knights implements AIEDS v1 on Random1y response cards:
+Random Knights implements AiEDs v1 on Random1y response cards:
 
 - Pure model: `apps/rand0m/lib/models/aieds/aieds_disclosure.dart`
 - Presentation: `apps/rand0m/lib/widgets/chat/aieds_disclosure_card.dart`
@@ -175,6 +175,6 @@ Random Knights implements AIEDS v1 on Random1y response cards:
 
 - Canonical JSON schema + content-type for machine-readable disclosures.
 - Per-provider default energy/carbon coefficients and their sourcing.
-- How AIEDS attaches to non-chat surfaces (reports, agent runs, test results,
+- How AiEDs attaches to non-chat surfaces (reports, agent runs, test results,
   Earth Intelligence) in a uniform envelope.
 - Licensing and a lightweight conformance test suite.

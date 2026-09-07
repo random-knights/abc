@@ -2,7 +2,7 @@
 
 This self-contained course mirrors `labs/00/agent-evals` for a draft-only email
 campaign agent. It keeps the same dual-provider seam, Phoenix span tracing,
-append-only AIEDS records, deterministic evaluators, LLM judges, experiments,
+append-only AiEDs records, deterministic evaluators, LLM judges, experiments,
 judge calibration, and production-style release gate.
 
 The runnable mailer that informed the exercise is private and includes sender
@@ -40,7 +40,7 @@ to `http://127.0.0.1:6006/v1/traces` under project `email-evals-course`.
 ```
 
 Use `--full` to run every included campaign case. Generated transcripts,
-experiment summaries, and AIEDS rows stay in ignored `outputs\` and `traces\`
+experiment summaries, and AiEDs rows stay in ignored `outputs\` and `traces\`
 folders. The checked summary belongs in `evidence\verified-runs.md`.
 
 ## What The Agent Does

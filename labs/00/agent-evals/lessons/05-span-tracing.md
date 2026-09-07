@@ -34,13 +34,13 @@ Open `generate_visualization > create_chart`. Its input includes real rows and
 its output can contain invented values. That is the first boundary where real
 data becomes placeholder data.
 
-## AIEDS
+## AiEDs
 
 Spans add hierarchy, parent-child relationships, nested latency, and rich
-inputs and outputs. AIEDS retains environmental accounting and a durable
+inputs and outputs. AiEDs retains environmental accounting and a durable
 append-only record. Neither replaces the other.
 
-| AIEDS | Span view |
+| AiEDs | Span view |
 | --- | --- |
 | `provider`, `model` | `llm.provider`, `llm.model_name` |
 | `tokensIn`, `tokensOut` | prompt and completion token attributes |

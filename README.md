@@ -67,15 +67,23 @@ public project queue for questions or fixes.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-<!-- BADGES -->
+<!----------- BADGES ----------->
 
-## <span style="color:#555555"><u> **CORE DEVELPOMENT** </u></span>
+<!-- TECHNOLOGY -->
 
-### **Workspace**
+## <span style="color:#555555"><u> **TECHNOLOGY** </u></span>
+
+<!-- ### **Workspace**
 
 [![Windows][Windows]][Windows-url]
 [![Nvidia][Nvidia]][Nvidia-url]
-[![Ryzen][Ryzen]][Ryzen-url]
+[![Ryzen][Ryzen]][Ryzen-url] -->
+
+### **CLI**
+
+[![GitBash][GitBash]][GitBash-url]
+[![Herdr][Herdr]][Herdr-url]
+[![Powershell][Powershell]][Powershell-url]
 
 ### **IDE**
 
@@ -94,10 +102,10 @@ public project queue for questions or fixes.
 
 ### **Tools**
 
-[![AdobeAudition][AdobeAudition]][AdobeAudition-url]
-[![AdobePodcast][AdobePodcast]][AdobePodcast-url]
+[![CodexMicropad][CodexMicropad]][CodexMicropad-url]
 [![TeenageEngineeringMic][TeenageEngineeringMic]][TeenageEngineeringMic-url]
 [![NothingHeadphones][NothingHeadphones]][NothingHeadphones-url]
+[![RaspberryPi][RaspberryPi]][RaspberryPi-url]
 
 ### **Development**
 
@@ -121,12 +129,14 @@ public project queue for questions or fixes.
 
 ### **AI**
 
-[![ChatGPT][ChatGPT]][ChatGPT-url]
+[![OpenAI][OpenAI]][OpenAI-url]
 [![Gemini][Gemini]][Gemini-url]
 [![Claude][Claude]][Claude-url]
 [![RabbitTech][RabbitTech]][RabbitTech-url]
 [![Perplexity][Perplexity]][Perplexity-url]
 [![Rand0mAI][Rand0mAI]][Rand0mAI-url]
+[![HuggingFace][HuggingFace]][HuggingFace-url]
+[![Ollama][Ollama]][Ollama-url]
 
 ### **Design**
 
@@ -136,9 +146,20 @@ public project queue for questions or fixes.
 
 ### **Pipelines**
 
+[![GoogleCloud][GoogleCloud]][GoogleCloud-url]
 [![GitHubActions][GitHubActions]][GitHubActions-url]
+[![Firebase][Firebase]][Firebase-url]
+[![Jira][Jira]][Jira-url]
 [![Slack][Slack]][Slack-url]
-[![CypressCloud][CypressCloud]][CypressCloud-url]
+
+### **Research & Funding**
+
+<div align="center">
+
+[![ORCiD][ORCiD]][ORCiD-url]
+[![OpenCollective][OpenCollective]][OpenCollective-url]
+
+</div>
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -177,6 +198,15 @@ public project queue for questions or fixes.
 [Macbook]: https://img.shields.io/badge/Apple-MacBook_Pro_2022-000000?style=for-the-badge&logo=apple&logoColor=white
 [Macbook-url]: https://www.apple.com/macbook-pro/
 
+<!-- CLI (C1: 8855ff) -->
+
+[GitBash]: https://img.shields.io/badge/GitBash-8855ff?style=for-the-badge&logo=git&logoColor=white
+[GitBash-url]: https://git-scm.com/
+[Herdr]: https://img.shields.io/badge/Herdr-8855ff?style=for-the-badge&logo=herdr&logoColor=white
+[Herdr-url]: https://herdr.dev/
+[Powershell]: https://img.shields.io/badge/Powershell-8855ff?style=for-the-badge&logo=power-shell&logoColor=white
+[Powershell-url]: https://apps.microsoft.com/detail/9mz1snwt0n5d?hl=en-US&gl=US
+
 <!-- IDE (C1: ff4124) -->
 
 [VSCode]: https://img.shields.io/badge/Visual_Studio_Code-ff4124?style=for-the-badge&logo=visualstudiocode&logoColor=white
@@ -200,14 +230,14 @@ public project queue for questions or fixes.
 
 <!-- TOOLS (C2: ad7a88) -->
 
-[AdobeAudition]: https://img.shields.io/badge/Adobe_Audition-ad7a88?style=for-the-badge&logo=adobeaudition&logoColor=white
-[AdobeAudition-url]: https://www.adobe.com/products/audition.html
-[AdobePodcast]: https://img.shields.io/badge/Adobe_Podcast-ad7a88?style=for-the-badge&logo=adobe&logoColor=white
-[AdobePodcast-url]: https://podcast.adobe.com/
+[CodexMicropad]: https://img.shields.io/badge/Open_AI-Codex--Micro-ad7a88?style=for-the-badge&logoColor=white
+[CodexMicropad-url]: https://openai.com/supply/co-lab/work-louder/
 [TeenageEngineeringMic]: https://img.shields.io/badge/Teenage_Engineering-CM--15_Mic-ad7a88?style=for-the-badge&logoColor=white
 [TeenageEngineeringMic-url]: https://teenage.engineering/products/cm-15
 [NothingHeadphones]: https://img.shields.io/badge/Nothing-Headphone_(1)-ad7a88?style=for-the-badge&logoColor=white
 [NothingHeadphones-url]: https://nothing.tech/products/headphone-1
+[RaspberryPi]: https://img.shields.io/badge/Raspberry_Pi-ad7a88?style=for-the-badge&logo=raspberrypi&logoColor=white
+[RaspberryPi-url]: https://www.raspberrypi.com/
 
 <!-- DEVELOPMENT BADGES -->
 
@@ -262,19 +292,23 @@ public project queue for questions or fixes.
 
 <!-- PIPELINE (C4: 6fcf8c) -->
 
-[Slack]: https://img.shields.io/badge/Slack-6fcf8c?style=for-the-badge&logo=slack&logoColor=white
+[Slack]: https://img.shields.io/badge/Slack-6fcf8c?style=for-the-badge&logo=slack&logoColor=orange
 [Slack-url]: https://www.slack.com/
-[CypressCloud]: https://img.shields.io/badge/Cypress_Cloud-6fcf8c?style=for-the-badge&logo=cypress&logoColor=white
+[CypressCloud]: https://img.shields.io/badge/Cypress_Cloud-6fcf8c?style=for-the-badge&logo=cypress&logoColor=orange
 [CypressCloud-url]: https://www.cypress.io/
-[Firebase]: https://img.shields.io/badge/Firebase-6fcf8c?style=for-the-badge&logo=firebase&logoColor=black
+[Firebase]: https://img.shields.io/badge/Firebase-6fcf8c?style=for-the-badge&logo=firebase&logoColor=orange
 [Firebase-url]: https://firebase.google.com/
-[GitHubActions]: https://img.shields.io/badge/GitHub_Actions-6fcf8c?style=for-the-badge&logo=github-actions&logoColor=white
+[GitHubActions]: https://img.shields.io/badge/GitHub_Actions-6fcf8c?style=for-the-badge&logo=github-actions&logoColor=orange
 [GitHubActions-url]: https://github.com/features/actions
+[GoogleCloud]: https://img.shields.io/badge/Google_Cloud-6fcf8c?style=for-the-badge&logo=google-cloud&logoColor=orange
+[GoogleCloud-url]: https://cloud.google.com
+[Jira]: https://img.shields.io/badge/Jira-6fcf8c?style=for-the-badge&logo=jira&logoColor=orange
+[Jira-url]: https://www.atlassian.com/software/jira
 
 <!-- AI (C4: b1fec8) -->
 
-[ChatGPT]: https://img.shields.io/badge/ChatGPT-b1fec8?style=for-the-badge&logo=openai&logoColor=white
-[ChatGPT-url]: https://chatgpt.com/
+[OpenAI]: https://img.shields.io/badge/OpenAI-b1fec8?style=for-the-badge&logo=openaigym&logoColor=white
+[OpenAI-url]: https://openai.com/
 [Gemini]: https://img.shields.io/badge/Gemini-b1fec8?style=for-the-badge&logo=google&logoColor=white
 [Gemini-url]: https://gemini.google.com/
 [Claude]: https://img.shields.io/badge/Claude-b1fec8?style=for-the-badge&logo=anthropic&logoColor=white
@@ -285,5 +319,14 @@ public project queue for questions or fixes.
 [Perplexity-url]: https://www.perplexity.ai/
 [Rand0mAI]: https://img.shields.io/badge/Rand0m.AI-FF4124?style=for-the-badge
 [Rand0mAI-url]: https://rand0m.ai/
+[HuggingFace]: https://img.shields.io/badge/HuggingFace-b1fec8?style=for-the-badge&logo=huggingface&logoColor=white
+[HuggingFace-url]: https://www.huggingface.co/
+[Ollama]: https://img.shields.io/badge/Ollama-b1fec8?style=for-the-badge&logo=ollama&logoColor=white
+[Ollama-url]: https://www.ollama.com/
 
-</details>
+<!-- AI (C4: b1fec8) -->
+
+[OpenCollective]: https://img.shields.io/badge/OpenCollective-edc303?style=for-the-badge&logo=opencollective&logoColor=white
+[OpenCollective-url]: https://opencollective.com/random-knights
+[ORCiD]: https://img.shields.io/badge/ORCiD-edc303?style=for-the-badge&logo=orcid&logoColor=white
+[ORCiD-url]: https://orcid.org/0009-0006-5066-1693

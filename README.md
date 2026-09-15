@@ -35,7 +35,9 @@ students progress step-by-step in one unified workspace, with a pathway into
 the wider Rand0m projects.
 
 <div align="center">
-  
+
+[![ForScience][ForScience]][ForScience-url] [![ForDevs][ForDevs]][ForDevs-url] [![ForQAs][ForQAs]][ForQAs-url]
+
 </div>
 
 ## Quickstart
@@ -59,11 +61,64 @@ public project queue for questions or fixes.
 11. Agent Tool Routing
 12. Spam Tracing w/Phoenix
 
-## Operating this repo
+<!-- ROADMAP -->
+
+## <span style="color:#555555" name="roadmap"><u> **ROADMAP** </u></span>
+
+```mermaid
+gantt
+title Future Proofing
+dateFormat YYYY-MM
+section 2026
+✌️ :a1, 2026-06, 60d
+❤️ :active, a1, 2026-04, 183d
+🌎 :crit, a1, 2026-01, 365d
+```
+
+<!-- CONTRIBUTING -->
+
+## <span style="color:#555555" name="contributing"><u> **CONTRIBUTING** </u></span>
+
+If you have a suggestion that would make this better, fork the repo and open a pull request &mdash; or open an issue with the tag "enhancement". Don't forget to star the project!
+
+1. Fork the Project
+2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the Branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+follow our progress on [GitHub @ Random Knights](https://github.com/random-knights)
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+<!-- STANDARD -->
+
+<div align="center">
+
+## <span style="color:#555555" name="standard"><u> **STANDARD** </u></span>
+
+| Name        | :chipmunk: |   Version    |             Description             |
+| ----------- | :--------: | :----------: | :---------------------------------: |
+| Earth+      |     🌎     | v1.0.0-draft |        Earth Health Scoring         |
+| AiEDs       |     ⚡     |    v2.1.0    |        AI Energy Disclosure         |
+| K13         |     👑     |    v2.0.0    |        AI Summary Reporting         |
+| AI for Good |     ❤️     |   &middot;   | (ITU) &middot; (UN) Recommendations |
+
+</div>
+
+<!-- OPERATING -->
+
+## <span style="color:#555555"><u> **OPERATING** </u></span>
 
 - [RUNBOOK.md](RUNBOOK.md) - humans: how it deploys (merging to main publishes
   the live site), roll back, what breaks and how to fix it.
 - [AGENTS.md](AGENTS.md) - agents: the rules that apply in this repo.
+
+<!-- CONTACT -->
+
+## <span style="color:#555555"><u> **CONTACT** </u></span>
+
+If any issues arise, please draft a strongly worded email and <u>**never**</u> send it to: **admin@rand0m.ai**
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 

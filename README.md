@@ -101,7 +101,7 @@ follow our progress on [GitHub @ Random Knights](https://github.com/random-knigh
 | ----------- | :--------: | :----------: | :---------------------------------: |
 | Earth+      |     🌎     | v1.0.0-draft |        Earth Health Scoring         |
 | AiEDs       |     ⚡     |    v2.1.0    |        AI Energy Disclosure         |
-| K13         |     👑     |    v2.0.0    |        AI Summary Reporting         |
+| K13         |     👑     |    v2.0.0    |        AI Response Summary          |
 | AI for Good |     ❤️     |   &middot;   | (ITU) &middot; (UN) Recommendations |
 
 </div>

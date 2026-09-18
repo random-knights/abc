@@ -138,14 +138,14 @@ follow our progress on [GitHub @ Random Knights](https://github.com/random-knigh
 <td align="center" width="25%">
 
 ⚡<br>
-<b>5.8</b><br>
+<b>5.6</b><br>
 <sub>kWh</sub>
 
 </td>
 <td align="center" width="25%">
 
 🌫️<br>
-<b>2.5</b><br>
+<b>2.4</b><br>
 <sub>kg CO₂e</sub>
 
 </td>
@@ -153,14 +153,14 @@ follow our progress on [GitHub @ Random Knights](https://github.com/random-knigh
 
 🌳<br>
 <sub>Tree-Time</sub><br>
-<b>43</b><br>
+<b>42</b><br>
 <sub>days</sub>
 
 </td>
 <td align="center" width="25%">
 
 🔢<br>
-<b>33.10 M</b><br>
+<b>32.04 M</b><br>
 <sub>tokens, 8 sessions</sub>
 
 </td>
@@ -185,11 +185,11 @@ published because it is what this project offsets against.
 
 | Equivalent | Amount | Basis |
 | --- | ---: | --- |
-| Phone charges | 483 | 12 Wh per charge |
-| LED bulb hours | 579 | 10 W bulb |
-| Laptop hours | 116 | 50 W laptop |
-| Driving distance | 15 km | 170 g CO₂e per km |
-| Tree-Time | 43 days | 21 kg CO₂e per mature tree per year |
+| Phone charges | 467 | 12 Wh per charge |
+| LED bulb hours | 561 | 10 W bulb |
+| Laptop hours | 112 | 50 W laptop |
+| Driving distance | 14 km | 170 g CO₂e per km |
+| Tree-Time | 42 days | 21 kg CO₂e per mature tree per year |
 
 </details>
 
@@ -198,11 +198,11 @@ published because it is what this project offsets against.
 
 <sub>What the figures above cost, and what it would take to absorb them. Modeled, like everything else here.</sub>
 
-**Energy cost: USD 1.06.** 5.8 kWh at USD 0.1834 per kWh, the United States average residential price for June 2026 (18.34 cents per kilowatthour), from <a href="https://www.eia.gov/electricity/monthly/epm_table_grapher.php?t=epmt_5_3">U.S. Energy Information Administration, Electric Power Monthly, Table 5.3</a>. The rate is pinned, not looked up at render time, so this figure is reproducible.
+**Energy cost: USD 1.03.** 5.6 kWh at USD 0.1834 per kWh, the United States average residential price for June 2026 (18.34 cents per kilowatthour), from <a href="https://www.eia.gov/electricity/monthly/epm_table_grapher.php?t=epmt_5_3">U.S. Energy Information Administration, Electric Power Monthly, Table 5.3</a>. The rate is pinned, not looked up at render time, so this figure is reproducible.
 
-**Modeled provider spend: USD 23.14.** The same sessions priced at published API list prices, rates version 2026-09-01, with cache writes at 1.25x and cache reads at 0.1x an input token. It is a MODEL, not a bill: this work runs on a subscription, so the marginal cost was nothing. It covers the 5 of 8 sessions counted above whose model that file prices; the other 3 carry a model nobody has priced and add nothing, rather than an assumed rate.
+**Modeled provider spend: USD 21.70.** The same sessions priced at published API list prices, rates version 2026-09-01, with cache writes at 1.25x and cache reads at 0.1x an input token. It is a MODEL, not a bill: this work runs on a subscription, so the marginal cost was nothing. It covers the 5 of 8 sessions counted above whose model that file prices; the other 3 carry a model nobody has priced and add nothing, rather than an assumed rate.
 
-**Trees needed: 1.** 2.5 kg CO₂e divided by 21 kg CO₂e, the yearly capture of one mature tree, rounded up: 1 mature tree would absorb this carbon within one year. Put the other way round, that is the Tree-Time above: one mature tree working for 43 days.
+**Trees needed: 1.** 2.4 kg CO₂e divided by 21 kg CO₂e, the yearly capture of one mature tree, rounded up: 1 mature tree would absorb this carbon within one year. Put the other way round, that is the Tree-Time above: one mature tree working for 42 days.
 
 **Offset cost: USD 0.01.** 0.0 tonnes of CO₂e at USD 6.03 per tonne, the REDD+ (Reduced Emissions from Deforestation and Degradation in Developing Countries) average, 2024, <a href="https://www.ecosystemmarketplace.com/publications/2025-state-of-the-voluntary-carbon-market-sovcm/">Ecosystem Marketplace, State of the Voluntary Carbon Market 2025, Table 4</a>. That is a nature-based avoidance and protection, not removals average: this project prices itself against keeping land, animals and trees standing, never against carbon removals or industrial and household offsets. Buying an offset is not the same as not spending the energy, and this line does not claim otherwise.
 

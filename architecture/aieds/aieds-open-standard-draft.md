@@ -1,12 +1,6 @@
 # AI Energy Disclosure Standard (AiEDs) — Open Standard Draft
 
-> **CORRECTED 2026-08-21.** This document stated `1 MRT = 22 kg CO2e/year`,
-> which was the AiEDs 1.x value. Canonical methodology 2.0.0 (2026-07-12)
-> unified the Mature Reference Tree at **21 kg CO2e/year**, and both Random
-> Knights implementations ship 21 000 g. The numbers, the worked example and
-> the version references below have been corrected to 2.0.0. The source of
-> truth is `aieds/spec/methodology.md`; where this document and that spec
-> disagree, the spec wins.
+> **Corrected 2026-08-21 and 2026-09-22.** The Mature Reference Tree figure in section 3.2 follows AI Energy Disclosure Standard methodology 2.3.0 (`spec/methodology.md` in `random-knights/standard`, which wins where this draft disagrees); the superseded 1.x figure is not used.
 
 Status: Draft v0.1 (open-standard framing). Date: 2026-06-11
 
@@ -80,7 +74,8 @@ they use.
 
 ### 3.2 Mature Reference Tree (Tree-Time)
 
-AiEDs defines a Mature Reference Tree (MRT) for the educational Tree-Time
+AI Energy Disclosure Standard methodology 2.3.0 (the value is unchanged since
+2.0.0) defines a Mature Reference Tree (MRT) for the educational Tree-Time
 equivalency:
 
 ```text
@@ -153,7 +148,9 @@ the rest behind an expand affordance (the Random Knights reference pattern).
 - The standard is versioned (`AiEDs v1`, then `v2`, …). Methodology changes that
   alter values require a version bump.
 - Mixed methodologies MUST NOT be combined without explicit disclosure (e.g. a
-  legacy `22 kg/yr` Tree-Time surface must be labeled until migrated).
+  Tree-Time surface still on a superseded 1.x methodology must be labeled
+  until migrated; the 1.x Mature Reference Tree figure itself must not be
+  used).
 - Governance/contribution process and license are TBD before public release;
   intent is a permissive open license for the specification text.
 

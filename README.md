@@ -102,8 +102,8 @@ follow our progress on [GitHub @ Random Knights](https://github.com/random-knigh
 | Name        | :chipmunk: | Version  |             Description             |
 | ----------- | :--------: | :------: | :---------------------------------: |
 | Earth+      |     🌎     |  v1.2.0  |        Earth Health Scoring         |
-| AiEDs       |     ⚡     |  v2.3.0  |        AI Energy Disclosure         |
-| K13         |     👑     |  v2.0.0  |         AI Response Summary         |
+| AiEDs       |     ⚡     |  v2.4.0  |        AI Energy Disclosure         |
+| K13         |     👑     |  v2.1.0  |         AI Response Summary         |
 | AI for Good |     ❤️     | &middot; | (ITU) &middot; (UN) Recommendations |
 
 <!-- STANDARD:END -->

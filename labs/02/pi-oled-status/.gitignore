@@ -1,0 +1,5 @@
+# Files the lab makes when you run it
+status.json
+pc.json
+*.tmp
+preview.png

@@ -15,6 +15,7 @@ Both read provider keys from the environment.
   path, one lab per lesson.
 - `sandbox.md` - a free space to experiment.
 - `render-media-composition.md` - the media/render composition lab.
+- `02/pi-oled-status/` - a Raspberry Pi status screen that shows nothing before it shows a wrong number.
 
 ## A note on the runnable tools
 

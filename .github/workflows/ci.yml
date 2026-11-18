@@ -57,6 +57,9 @@ jobs:
           test -s labs/01/email-evals/requirements.txt
           test -s labs/01/email-evals/course.py
           test -s labs/01/email-evals/data/campaign_fixture.json
+          test -s labs/02/pi-oled-status/README.md
+          test -s labs/02/pi-oled-status/rk_status.py
+          test -s labs/02/pi-oled-status/collect.ps1
           for id in 03 05 06 07 08 09 10 11 12 13; do
             test -s labs/01/email-evals/lessons/${id}-*.md
           done
@@ -66,6 +69,7 @@ jobs:
         run: |
           python -m compileall -q labs/00/agent-evals
           python -m compileall -q labs/01/email-evals
+          python -m compileall -q labs/02/pi-oled-status
 
       - name: Verify FFmpeg boundary
         shell: bash

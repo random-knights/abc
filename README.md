@@ -102,7 +102,7 @@ follow our progress on [GitHub @ Random Knights](https://github.com/random-knigh
 | Name        | :chipmunk: | Version  |             Description             |
 | ----------- | :--------: | :------: | :---------------------------------: |
 | Earth+      |     🌎     |  v1.2.1  |          Earth + Ai Impact          |
-| AiEDs       |     ⚡     |  v2.5.0  |        AI Energy Disclosure         |
+| AiEDs       |     ⚡     |  v2.5.1  |        AI Energy Disclosure         |
 | AI for Good |     ❤️     | &middot; | (ITU) &middot; (UN) Recommendations |
 
 <!-- STANDARD:END -->
